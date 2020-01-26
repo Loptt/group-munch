@@ -1,6 +1,8 @@
 let express = require('express');
 let morgan = require('morgan');
-
+let bodyParser = require('body-parser');
+let mongoose = require('mongoose');
+let jsonParser = bodyParser.json();
 let app = express();
 
 app.use(express.static('public'));

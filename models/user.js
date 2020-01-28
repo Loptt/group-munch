@@ -23,17 +23,8 @@ let UserController = {
                 throw Error(error);
             });
     },
-    getByEmail: function(email) {
-        return User.find({email: email})
-            .then(user => {
-                return user;
-            })
-            .catch(error => {
-                throw Error(error);
-            });
-    },
     getById: function(id) {
-        return User.find({id: id})
+        return User.findById(id)
             .then(user => {
                 return user;
             })

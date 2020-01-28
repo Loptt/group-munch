@@ -8,11 +8,18 @@ const distanceEnum = {
     LONG: 'long'
 }
 
+const priceEnum = {
+    LOW: 'low',
+    MEDIUM: 'medium',
+    HIGH: 'high'
+}
+
 let placeCollection = mongoose.Schema({
     name: {type: String},
     description: {type: String},
     location: {type: String},
-    distanceCategory: distanceEnum
+    distanceCategory: distanceEnum,
+    priceCategory: priceEnum
 });
 
 let votingEventCollection = mongoose.Schema({

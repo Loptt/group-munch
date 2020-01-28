@@ -22,8 +22,16 @@ let placeCollection = mongoose.Schema({
     priceCategory: priceEnum
 });
 
-let votingEventCollection = mongoose.Schema({
+let voteCollection = mongoose.Schema({
+    pricePreference: priceEnum,
+    distancePreference: distanceEnum,
+    dateTimeVoted: Date
+});
 
+let votingEventCollection = mongoose.Schema({
+    dateTimeStart: Date,
+    datetimeEnd: Date,
+    vote: [voteCollection]
 });
 
 let groupCollection = mongoose.Schema({

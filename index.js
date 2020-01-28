@@ -6,18 +6,25 @@ let jsonParser = bodyParser.json();
 let app = express();
 
 let {DATABASE_URL, PORT} = require('./config');
-console.log(DATABASE_URL);
 let {UserController} = require('./models/user');
 
 app.use(express.static('public'));
 app.use(morgan('dev'));
 
 app.get('/api/users', jsonParser, (req, res) => {
-    return res.status(200).json(UserController.getAll());
+    UserController.getAll()
+        .then(users => {
+            return res.status(200).json(users);
+        })
+        .catch(error => {
+            console.log(error);
+            res.statusMessage = "Database error";
+            return res.status(500).send();
+        })
 });
 
 app.get('/api/users-by-id', jsonParser, (req, res) => {
-    return res.status(200).json(UserController.getAll());
+    let id = req.query.id;
 });
 
 let server;

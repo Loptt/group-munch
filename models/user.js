@@ -15,7 +15,7 @@ let User = mongoose.model('users', userCollection);
 
 let UserController = {
     getAll: function() {
-        User.find()
+        return User.find()
             .then(users => {
                 return users;
             })

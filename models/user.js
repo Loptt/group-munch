@@ -3,10 +3,8 @@ let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 let userCollection = mongoose.Schema({
-    name: {
-        firstName: {type: String},
-        lastName: {type: String}
-    },
+    firstName: {type: String},
+    lastName: {type: String},
     email: {type: String},
     profilePicture: {type: String}
 });
@@ -51,7 +49,7 @@ let UserController = {
             });
     },
     update: function(id, updatedUser) {
-        return User.findOneAndUpdate(id, updatedUser)
+        return User.findByIdAndUpdate(id, updatedUser)
             .then(uu => {
                 return uu;
             })

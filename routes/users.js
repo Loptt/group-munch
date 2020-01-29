@@ -4,6 +4,7 @@ let jsonParser = bodyParser.json();
 let router = express.Router();
 
 let {UserController} = require('../models/user');
+let ServerError = require('../error');
 
 router.get('/api/users', jsonParser, (req, res) => {
     UserController.getAll()
@@ -22,17 +23,25 @@ router.get('/api/users-by-id', jsonParser, (req, res) => {
 
     if (id == undefined) {
         res.statusMessage = "No id given to get users";
-        res.status(406).send();
+        return res.status(406).send();
     }
 
     UserController.getById(id)
         .then(user => {
+            if (user == null) {
+                throw new ServerError(404, "ID not found");
+            }
             return res.status(200).json(user);
         })
         .catch(error => {
             console.log(error);
-            res.statusMessage = "Database error";
-            return res.status(500).send();
+            if (error.code === 404) {
+                res.statusMessage = "User not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
         });
 });
 
@@ -48,10 +57,10 @@ router.get('/api/users-by-email', jsonParser, (req, res) => {
         .then(user => {
             if (user == null) {
                 res.statusMessage = "No user found with given email";
-                res.status(404).send();
+                return res.status(404).send();
             }
 
-            res.status(200).json(user);
+            return res.status(200).json(user);
         });
 });
 
@@ -68,23 +77,33 @@ router.post('/api/create-user', jsonParser, (req, res) => {
         return res.status(406).send();
     }
 
-    let newUser = {
-        name: {
-            firstName: firstName,
-            lastName: lastName
-        },
-        email: email,
-        profilePicture: pp
-    }
+    UserController.getByEmail(email)
+        .then(user => {
+            if (user != null) {
+                throw new ServerError(409);
+            }
 
-    UserController.create(newUser)
+            let newUser = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                profilePicture: pp
+            }
+
+            return UserController.create(newUser)
+        })
         .then(nu => {
             return res.status(201).json(nu);
         })
         .catch(error => {
             console.log(error);
-            res.statusMessage = "Database error";
-            return res.status(500).send();
+            if (error.code === 409) {
+                res.statusMessage = "User with given email already exists";
+                return res.status(409).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
         });
 });
 
@@ -98,7 +117,9 @@ router.put('/api/update-user', jsonParser, async (req, res) => {
 
     UserController.getById(id)
         .then(user => {
-            //console.log(user);
+            if (user == null) {
+                throw new ServerError(404, "ID not found");
+            }
             let {firstName, lastName, email, profilePicture} = req.body;
         
             if (firstName == undefined && lastName == undefined && email == undefined && profilePicture == undefined) {
@@ -121,24 +142,52 @@ router.put('/api/update-user', jsonParser, async (req, res) => {
                 newUser.email = profilePicture;
             }
 
-            UserController.update(id, newUser)
-                .then(nu => {
-                    console.log(nu);
-                    return res.status(202).json(nu);
-                })
-                .catch(error => {
-                    console.log(error);
-                    res.statusMessage = "Database error";
-                    return res.status(500).send();
-                });
+            return UserController.update(id, newUser)
+        })
+        .then(nu => {
+            return res.status(202).json(nu);
         })
         .catch(error => {
             console.log(error);
-            res.statusMessage = "Database error";
-            return res.status(500).send();
+            if (error.code === 404) {
+                res.statusMessage = "User not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
         });
+});
 
+router.delete('/api/delete-user', jsonParser, (req, res) => {
+    let id = req.query.id;
     
+    if (id == undefined) {
+        res.statusMessage = "No ID given to delete";
+        return res.status(406).send();
+    }
+
+    UserController.getById(id)
+        .then(user => {
+            if (user == null) {
+                throw new ServerError(404);
+            }
+
+            return UserController.delete(id);
+        })
+        .then(user => {
+            return res.status(200).send();
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.code === 404) {
+                res.statusMessage = "User not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database erro";
+                return res.status(500).send();
+            }
+        });
 });
 
 module.exports = router;

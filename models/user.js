@@ -32,6 +32,15 @@ let UserController = {
                 throw Error(error);
             });
     },
+    getByEmail: function(email) {
+        return User.findOne({email: email})
+            .then(user => {
+                return user;
+            })
+            .catch(error => {
+                throw Error(error);
+            });
+    },
     create: function(newUser) {
         return User.create(newUser)
             .then(nu => {

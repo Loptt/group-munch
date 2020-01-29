@@ -73,7 +73,7 @@ let GroupController = {
             });
     },
     getByMemberId: function(id) {
-        Group.find({members: id})
+        Group.find({members: {$in: [id]}})
             .then(gs => {
                 return gs;
             })

@@ -6,7 +6,7 @@ let userCollection = mongoose.Schema({
     firstName: {type: String},
     lastName: {type: String},
     email: {type: String},
-    profilePicture: {type: String}
+    password: String
 });
 
 let User = mongoose.model('users', userCollection);

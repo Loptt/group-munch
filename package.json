@@ -19,7 +19,9 @@
   "homepage": "https://github.com/Loptt/group-munch#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.9",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "path": "^0.12.7"
   }
 }

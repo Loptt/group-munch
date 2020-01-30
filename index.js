@@ -3,6 +3,7 @@ let express = require('express');
 let morgan = require('morgan');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
+let path = require('path');
 let jsonParser = bodyParser.json();
 let app = express();
 
@@ -13,7 +14,7 @@ let userRoutes = require('./routes/users');
 let {DATABASE_URL, PORT} = require('./config');
 let {UserController} = require('./models/user');
 
-app.use(express.static('public'));
+app.use(express.static("public"));
 app.use(morgan('dev'));
 
 app.use(userRoutes);

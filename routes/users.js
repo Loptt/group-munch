@@ -239,12 +239,12 @@ router.get('/api/validate', (req, res) => {
 
     jwt.verify(token, 'secret', (err, user) => {
         if (err) {
-            res.statusMessage = "Token no valido";
-            return res.status(400).send();
+            res.statusMessage = "Invalid token";
+            return res.status(401).send();
         }
 
         console.log(user);
-        return res.status(200).json({message: "Exito"});
+        return res.status(200).json({message: "Success"});
     });
 });
 

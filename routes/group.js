@@ -129,6 +129,34 @@ router.put('/api/update-group', jsonParser, async (req, res) => {
         });
 });
 
+router.get('/api/groups-of-user', jsonParser, (req, res) => {
+    id = req.body.id;
+
+    if (id == undefined) {
+        res.statusMessage = "No ID given to show groups of user";
+        return res.status(406).send();
+    }
+    
+    GroupController.getByMemberId(id)
+        .then(groupsOfUser => {
+            if (groupsOfUser == null) {
+                throw new ServerError(404);
+            }
+
+            return res.status(200).json(groupsOfUser);
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.code === 404) {
+                res.statusMessage = "User not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
+        });
+});
+
 router.get('/api/validate', (req, res) => {
     let token = req.headers.authorization;
     token = token.replace('Bearer ', '');

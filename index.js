@@ -9,6 +9,7 @@ let app = express();
 
 // Routes
 let userRoutes = require('./routes/users');
+let authRoutes = require('./routes/auth');
 
 // Custom dependencies
 let {DATABASE_URL, PORT} = require('./config');
@@ -18,7 +19,8 @@ let middleware = require('./middleware');
 app.use(express.static("public"));
 app.use(morgan('dev'));
 
-app.use(userRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api', authRoutes);
 
 app.get('/', middleware.isLoggedIn, (req, res) => {
     res.sendFile('/public/index.html', { root: __dirname })

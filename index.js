@@ -4,8 +4,10 @@ let morgan = require('morgan');
 let bodyParser = require('body-parser');
 let mongoose = require('mongoose');
 let path = require('path');
+let cors = require('cors');
 let jsonParser = bodyParser.json();
 let app = express();
+
 
 // Routes
 let userRoutes = require('./routes/users');
@@ -16,6 +18,7 @@ let {DATABASE_URL, PORT} = require('./config');
 let {UserController} = require('./models/user');
 let middleware = require('./middleware');
 
+app.use(cors());
 app.use(express.static("public"));
 app.use(morgan('dev'));
 

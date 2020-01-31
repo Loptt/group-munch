@@ -144,7 +144,7 @@ router.put('/api/update-user', jsonParser, async (req, res) => {
                 newUser.email = profilePicture;
             }
 
-            return UserController.update(id, newUser)
+            return UserController.update(id, newUser);
         })
         .then(nu => {
             return res.status(202).json(nu);
@@ -186,7 +186,35 @@ router.delete('/api/delete-user', jsonParser, (req, res) => {
                 res.statusMessage = "User not found with given id";
                 return res.status(404).send();
             } else {
-                res.statusMessage = "Database erro";
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
+        });
+});
+
+router.get('/api/groups-of-user', jsonParser, (req, res) => {
+    id = req.body.id;
+
+    if (id == undefined) {
+        res.statusMessage = "No ID given to show groups of user";
+        return res.status(406).send();
+    }
+    
+    GroupController.getByMemberId(id)
+        .then(groupsOfUser => {
+            if (groupsOfUser == null) {
+                throw new ServerError(404);
+            }
+
+            return res.status(200).json(groupsOfUser);
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.code === 404) {
+                res.statusMessage = "User not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
                 return res.status(500).send();
             }
         });
@@ -207,7 +235,7 @@ router.post('/api/login', jsonParser, (req, res) => {
             }
 
             if (user.password !== password) {
-                throw new ServerError(401, "Unvalid password");
+                throw new ServerError(401, "Invalid password");
             }
 
             let data = {

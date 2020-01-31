@@ -1,0 +1,779 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node', '/usr/bin/npm', 'cache', 'clean', '-f' ]
+2 info using npm@3.5.2
+3 info using node@v8.10.0
+4 warn using --force I sure hope you know what you are doing.
+5 silly ls normalized .
+6 silly gentlyRm /home/loptt/.npm/_cacache is being purged
+7 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/_cacache
+8 silly gentlyRm /home/loptt/.npm/_locks is being purged
+9 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/_locks
+10 silly gentlyRm /home/loptt/.npm/abbrev is being purged
+11 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/abbrev
+12 silly gentlyRm /home/loptt/.npm/accepts is being purged
+13 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/accepts
+14 silly gentlyRm /home/loptt/.npm/anonymous-cli-metrics.json is being purged
+15 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/anonymous-cli-metrics.json
+16 silly gentlyRm /home/loptt/.npm/ansi-align is being purged
+17 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ansi-align
+18 silly gentlyRm /home/loptt/.npm/ansi-regex is being purged
+19 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ansi-regex
+20 silly gentlyRm /home/loptt/.npm/ansi-styles is being purged
+21 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ansi-styles
+22 silly gentlyRm /home/loptt/.npm/anymatch is being purged
+23 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/anymatch
+24 silly gentlyRm /home/loptt/.npm/array-flatten is being purged
+25 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/array-flatten
+26 silly gentlyRm /home/loptt/.npm/balanced-match is being purged
+27 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/balanced-match
+28 silly gentlyRm /home/loptt/.npm/basic-auth is being purged
+29 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/basic-auth
+30 silly gentlyRm /home/loptt/.npm/binary-extensions is being purged
+31 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/binary-extensions
+32 silly gentlyRm /home/loptt/.npm/bluebird is being purged
+33 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/bluebird
+34 silly gentlyRm /home/loptt/.npm/body-parser is being purged
+35 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/body-parser
+36 silly gentlyRm /home/loptt/.npm/boxen is being purged
+37 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/boxen
+38 silly gentlyRm /home/loptt/.npm/brace-expansion is being purged
+39 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/brace-expansion
+40 silly gentlyRm /home/loptt/.npm/braces is being purged
+41 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/braces
+42 silly gentlyRm /home/loptt/.npm/bson is being purged
+43 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/bson
+44 silly gentlyRm /home/loptt/.npm/buffer-equal-constant-time is being purged
+45 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/buffer-equal-constant-time
+46 silly gentlyRm /home/loptt/.npm/bytes is being purged
+47 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/bytes
+48 silly gentlyRm /home/loptt/.npm/camelcase is being purged
+49 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/camelcase
+50 silly gentlyRm /home/loptt/.npm/capture-stack-trace is being purged
+51 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/capture-stack-trace
+52 silly gentlyRm /home/loptt/.npm/chalk is being purged
+53 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/chalk
+54 silly gentlyRm /home/loptt/.npm/chokidar is being purged
+55 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/chokidar
+56 silly gentlyRm /home/loptt/.npm/ci-info is being purged
+57 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ci-info
+58 silly gentlyRm /home/loptt/.npm/cli-boxes is being purged
+59 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/cli-boxes
+60 silly gentlyRm /home/loptt/.npm/color-convert is being purged
+61 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/color-convert
+62 silly gentlyRm /home/loptt/.npm/color-name is being purged
+63 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/color-name
+64 silly gentlyRm /home/loptt/.npm/concat-map is being purged
+65 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/concat-map
+66 silly gentlyRm /home/loptt/.npm/configstore is being purged
+67 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/configstore
+68 silly gentlyRm /home/loptt/.npm/content-disposition is being purged
+69 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/content-disposition
+70 silly gentlyRm /home/loptt/.npm/content-type is being purged
+71 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/content-type
+72 silly gentlyRm /home/loptt/.npm/cookie is being purged
+73 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/cookie
+74 silly gentlyRm /home/loptt/.npm/cookie-signature is being purged
+75 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/cookie-signature
+76 silly gentlyRm /home/loptt/.npm/create-error-class is being purged
+77 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/create-error-class
+78 silly gentlyRm /home/loptt/.npm/cross-spawn is being purged
+79 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/cross-spawn
+80 silly gentlyRm /home/loptt/.npm/crypto-random-string is being purged
+81 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/crypto-random-string
+82 silly gentlyRm /home/loptt/.npm/debug is being purged
+83 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/debug
+84 silly gentlyRm /home/loptt/.npm/deep-extend is being purged
+85 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/deep-extend
+86 silly gentlyRm /home/loptt/.npm/depd is being purged
+87 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/depd
+88 silly gentlyRm /home/loptt/.npm/destroy is being purged
+89 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/destroy
+90 silly gentlyRm /home/loptt/.npm/dot-prop is being purged
+91 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/dot-prop
+92 silly gentlyRm /home/loptt/.npm/duplexer3 is being purged
+93 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/duplexer3
+94 silly gentlyRm /home/loptt/.npm/ecdsa-sig-formatter is being purged
+95 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ecdsa-sig-formatter
+96 silly gentlyRm /home/loptt/.npm/ee-first is being purged
+97 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ee-first
+98 silly gentlyRm /home/loptt/.npm/encodeurl is being purged
+99 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/encodeurl
+100 silly gentlyRm /home/loptt/.npm/escape-html is being purged
+101 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/escape-html
+102 silly gentlyRm /home/loptt/.npm/escape-string-regexp is being purged
+103 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/escape-string-regexp
+104 silly gentlyRm /home/loptt/.npm/etag is being purged
+105 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/etag
+106 silly gentlyRm /home/loptt/.npm/execa is being purged
+107 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/execa
+108 silly gentlyRm /home/loptt/.npm/express is being purged
+109 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/express
+110 silly gentlyRm /home/loptt/.npm/fill-range is being purged
+111 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/fill-range
+112 silly gentlyRm /home/loptt/.npm/finalhandler is being purged
+113 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/finalhandler
+114 silly gentlyRm /home/loptt/.npm/forwarded is being purged
+115 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/forwarded
+116 silly gentlyRm /home/loptt/.npm/fresh is being purged
+117 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/fresh
+118 silly gentlyRm /home/loptt/.npm/get-stream is being purged
+119 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/get-stream
+120 silly gentlyRm /home/loptt/.npm/glob-parent is being purged
+121 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/glob-parent
+122 silly gentlyRm /home/loptt/.npm/global-dirs is being purged
+123 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/global-dirs
+124 silly gentlyRm /home/loptt/.npm/got is being purged
+125 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/got
+126 silly gentlyRm /home/loptt/.npm/graceful-fs is being purged
+127 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/graceful-fs
+128 silly gentlyRm /home/loptt/.npm/has-flag is being purged
+129 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/has-flag
+130 silly gentlyRm /home/loptt/.npm/http-errors is being purged
+131 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/http-errors
+132 silly gentlyRm /home/loptt/.npm/iconv-lite is being purged
+133 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/iconv-lite
+134 silly gentlyRm /home/loptt/.npm/ignore-by-default is being purged
+135 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ignore-by-default
+136 silly gentlyRm /home/loptt/.npm/import-lazy is being purged
+137 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/import-lazy
+138 silly gentlyRm /home/loptt/.npm/imurmurhash is being purged
+139 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/imurmurhash
+140 silly gentlyRm /home/loptt/.npm/inherits is being purged
+141 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/inherits
+142 silly gentlyRm /home/loptt/.npm/ini is being purged
+143 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ini
+144 silly gentlyRm /home/loptt/.npm/ipaddr.js is being purged
+145 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ipaddr.js
+146 silly gentlyRm /home/loptt/.npm/is-binary-path is being purged
+147 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-binary-path
+148 silly gentlyRm /home/loptt/.npm/is-ci is being purged
+149 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-ci
+150 silly gentlyRm /home/loptt/.npm/is-extglob is being purged
+151 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-extglob
+152 silly gentlyRm /home/loptt/.npm/is-fullwidth-code-point is being purged
+153 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-fullwidth-code-point
+154 silly gentlyRm /home/loptt/.npm/is-glob is being purged
+155 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-glob
+156 silly gentlyRm /home/loptt/.npm/is-installed-globally is being purged
+157 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-installed-globally
+158 silly gentlyRm /home/loptt/.npm/is-npm is being purged
+159 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-npm
+160 silly gentlyRm /home/loptt/.npm/is-number is being purged
+161 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-number
+162 silly gentlyRm /home/loptt/.npm/is-obj is being purged
+163 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-obj
+164 silly gentlyRm /home/loptt/.npm/is-path-inside is being purged
+165 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-path-inside
+166 silly gentlyRm /home/loptt/.npm/is-redirect is being purged
+167 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-redirect
+168 silly gentlyRm /home/loptt/.npm/is-retry-allowed is being purged
+169 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-retry-allowed
+170 silly gentlyRm /home/loptt/.npm/is-stream is being purged
+171 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/is-stream
+172 silly gentlyRm /home/loptt/.npm/isexe is being purged
+173 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/isexe
+174 silly gentlyRm /home/loptt/.npm/jsonwebtoken is being purged
+175 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/jsonwebtoken
+176 silly gentlyRm /home/loptt/.npm/jwa is being purged
+177 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/jwa
+178 silly gentlyRm /home/loptt/.npm/jws is being purged
+179 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/jws
+180 silly gentlyRm /home/loptt/.npm/kareem is being purged
+181 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/kareem
+182 silly gentlyRm /home/loptt/.npm/latest-version is being purged
+183 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/latest-version
+184 silly gentlyRm /home/loptt/.npm/lodash.includes is being purged
+185 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lodash.includes
+186 silly gentlyRm /home/loptt/.npm/lodash.isboolean is being purged
+187 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lodash.isboolean
+188 silly gentlyRm /home/loptt/.npm/lodash.isinteger is being purged
+189 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lodash.isinteger
+190 silly gentlyRm /home/loptt/.npm/lodash.isnumber is being purged
+191 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lodash.isnumber
+192 silly gentlyRm /home/loptt/.npm/lodash.isplainobject is being purged
+193 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lodash.isplainobject
+194 silly gentlyRm /home/loptt/.npm/lodash.isstring is being purged
+195 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lodash.isstring
+196 silly gentlyRm /home/loptt/.npm/lodash.once is being purged
+197 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lodash.once
+198 silly gentlyRm /home/loptt/.npm/lowercase-keys is being purged
+199 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lowercase-keys
+200 silly gentlyRm /home/loptt/.npm/lru-cache is being purged
+201 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/lru-cache
+202 silly gentlyRm /home/loptt/.npm/make-dir is being purged
+203 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/make-dir
+204 silly gentlyRm /home/loptt/.npm/media-typer is being purged
+205 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/media-typer
+206 silly gentlyRm /home/loptt/.npm/memory-pager is being purged
+207 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/memory-pager
+208 silly gentlyRm /home/loptt/.npm/merge-descriptors is being purged
+209 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/merge-descriptors
+210 silly gentlyRm /home/loptt/.npm/methods is being purged
+211 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/methods
+212 silly gentlyRm /home/loptt/.npm/mime is being purged
+213 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/mime
+214 silly gentlyRm /home/loptt/.npm/mime-db is being purged
+215 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/mime-db
+216 silly gentlyRm /home/loptt/.npm/mime-types is being purged
+217 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/mime-types
+218 silly gentlyRm /home/loptt/.npm/minimatch is being purged
+219 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/minimatch
+220 silly gentlyRm /home/loptt/.npm/minimist is being purged
+221 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/minimist
+222 silly gentlyRm /home/loptt/.npm/mongodb is being purged
+223 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/mongodb
+224 silly gentlyRm /home/loptt/.npm/mongoose is being purged
+225 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/mongoose
+226 silly gentlyRm /home/loptt/.npm/mongoose-legacy-pluralize is being purged
+227 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/mongoose-legacy-pluralize
+228 silly gentlyRm /home/loptt/.npm/morgan is being purged
+229 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/morgan
+230 silly gentlyRm /home/loptt/.npm/mpath is being purged
+231 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/mpath
+232 silly gentlyRm /home/loptt/.npm/mquery is being purged
+233 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/mquery
+234 silly gentlyRm /home/loptt/.npm/ms is being purged
+235 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/ms
+236 silly gentlyRm /home/loptt/.npm/negotiator is being purged
+237 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/negotiator
+238 silly gentlyRm /home/loptt/.npm/nodemon is being purged
+239 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/nodemon
+240 silly gentlyRm /home/loptt/.npm/nopt is being purged
+241 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/nopt
+242 silly gentlyRm /home/loptt/.npm/normalize-path is being purged
+243 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/normalize-path
+244 silly gentlyRm /home/loptt/.npm/npm is being purged
+245 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/npm
+246 silly gentlyRm /home/loptt/.npm/npm-run-path is being purged
+247 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/npm-run-path
+248 silly gentlyRm /home/loptt/.npm/on-finished is being purged
+249 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/on-finished
+250 silly gentlyRm /home/loptt/.npm/on-headers is being purged
+251 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/on-headers
+252 silly gentlyRm /home/loptt/.npm/p-finally is being purged
+253 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/p-finally
+254 silly gentlyRm /home/loptt/.npm/package-json is being purged
+255 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/package-json
+256 silly gentlyRm /home/loptt/.npm/parseurl is being purged
+257 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/parseurl
+258 silly gentlyRm /home/loptt/.npm/path is being purged
+259 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/path
+260 silly gentlyRm /home/loptt/.npm/path-is-inside is being purged
+261 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/path-is-inside
+262 silly gentlyRm /home/loptt/.npm/path-key is being purged
+263 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/path-key
+264 silly gentlyRm /home/loptt/.npm/path-to-regexp is being purged
+265 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/path-to-regexp
+266 silly gentlyRm /home/loptt/.npm/picomatch is being purged
+267 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/picomatch
+268 silly gentlyRm /home/loptt/.npm/pify is being purged
+269 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/pify
+270 silly gentlyRm /home/loptt/.npm/prepend-http is being purged
+271 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/prepend-http
+272 silly gentlyRm /home/loptt/.npm/process is being purged
+273 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/process
+274 silly gentlyRm /home/loptt/.npm/proxy-addr is being purged
+275 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/proxy-addr
+276 silly gentlyRm /home/loptt/.npm/pseudomap is being purged
+277 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/pseudomap
+278 silly gentlyRm /home/loptt/.npm/pstree.remy is being purged
+279 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/pstree.remy
+280 silly gentlyRm /home/loptt/.npm/qs is being purged
+281 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/qs
+282 silly gentlyRm /home/loptt/.npm/range-parser is being purged
+283 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/range-parser
+284 silly gentlyRm /home/loptt/.npm/raw-body is being purged
+285 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/raw-body
+286 silly gentlyRm /home/loptt/.npm/rc is being purged
+287 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/rc
+288 silly gentlyRm /home/loptt/.npm/readdirp is being purged
+289 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/readdirp
+290 silly gentlyRm /home/loptt/.npm/regexp-clone is being purged
+291 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/regexp-clone
+292 silly gentlyRm /home/loptt/.npm/registry-auth-token is being purged
+293 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/registry-auth-token
+294 silly gentlyRm /home/loptt/.npm/registry-url is being purged
+295 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/registry-url
+296 silly gentlyRm /home/loptt/.npm/registry.npmjs.org is being purged
+297 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/registry.npmjs.org
+298 silly gentlyRm /home/loptt/.npm/require_optional is being purged
+299 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/require_optional
+300 silly gentlyRm /home/loptt/.npm/resolve-from is being purged
+301 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/resolve-from
+302 silly gentlyRm /home/loptt/.npm/safe-buffer is being purged
+303 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/safe-buffer
+304 silly gentlyRm /home/loptt/.npm/safer-buffer is being purged
+305 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/safer-buffer
+306 silly gentlyRm /home/loptt/.npm/saslprep is being purged
+307 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/saslprep
+308 silly gentlyRm /home/loptt/.npm/semver is being purged
+309 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/semver
+310 silly gentlyRm /home/loptt/.npm/semver-diff is being purged
+311 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/semver-diff
+312 silly gentlyRm /home/loptt/.npm/send is being purged
+313 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/send
+314 silly gentlyRm /home/loptt/.npm/serve-static is being purged
+315 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/serve-static
+316 silly gentlyRm /home/loptt/.npm/setprototypeof is being purged
+317 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/setprototypeof
+318 silly gentlyRm /home/loptt/.npm/shebang-command is being purged
+319 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/shebang-command
+320 silly gentlyRm /home/loptt/.npm/shebang-regex is being purged
+321 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/shebang-regex
+322 silly gentlyRm /home/loptt/.npm/sift is being purged
+323 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/sift
+324 silly gentlyRm /home/loptt/.npm/signal-exit is being purged
+325 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/signal-exit
+326 silly gentlyRm /home/loptt/.npm/sliced is being purged
+327 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/sliced
+328 silly gentlyRm /home/loptt/.npm/sparse-bitfield is being purged
+329 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/sparse-bitfield
+330 silly gentlyRm /home/loptt/.npm/statuses is being purged
+331 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/statuses
+332 silly gentlyRm /home/loptt/.npm/string-width is being purged
+333 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/string-width
+334 silly gentlyRm /home/loptt/.npm/strip-ansi is being purged
+335 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/strip-ansi
+336 silly gentlyRm /home/loptt/.npm/strip-eof is being purged
+337 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/strip-eof
+338 silly gentlyRm /home/loptt/.npm/strip-json-comments is being purged
+339 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/strip-json-comments
+340 silly gentlyRm /home/loptt/.npm/supports-color is being purged
+341 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/supports-color
+342 silly gentlyRm /home/loptt/.npm/term-size is being purged
+343 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/term-size
+344 silly gentlyRm /home/loptt/.npm/timed-out is being purged
+345 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/timed-out
+346 silly gentlyRm /home/loptt/.npm/to-regex-range is being purged
+347 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/to-regex-range
+348 silly gentlyRm /home/loptt/.npm/toidentifier is being purged
+349 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/toidentifier
+350 silly gentlyRm /home/loptt/.npm/touch is being purged
+351 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/touch
+352 silly gentlyRm /home/loptt/.npm/type-is is being purged
+353 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/type-is
+354 silly gentlyRm /home/loptt/.npm/undefsafe is being purged
+355 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/undefsafe
+356 silly gentlyRm /home/loptt/.npm/unique-string is being purged
+357 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/unique-string
+358 silly gentlyRm /home/loptt/.npm/unpipe is being purged
+359 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/unpipe
+360 silly gentlyRm /home/loptt/.npm/unzip-response is being purged
+361 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/unzip-response
+362 silly gentlyRm /home/loptt/.npm/update-notifier is being purged
+363 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/update-notifier
+364 silly gentlyRm /home/loptt/.npm/url-parse-lax is being purged
+365 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/url-parse-lax
+366 silly gentlyRm /home/loptt/.npm/util is being purged
+367 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/util
+368 silly gentlyRm /home/loptt/.npm/utils-merge is being purged
+369 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/utils-merge
+370 silly gentlyRm /home/loptt/.npm/uuid is being purged
+371 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/uuid
+372 silly gentlyRm /home/loptt/.npm/vary is being purged
+373 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/vary
+374 silly gentlyRm /home/loptt/.npm/which is being purged
+375 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/which
+376 silly gentlyRm /home/loptt/.npm/widest-line is being purged
+377 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/widest-line
+378 silly gentlyRm /home/loptt/.npm/write-file-atomic is being purged
+379 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/write-file-atomic
+380 silly gentlyRm /home/loptt/.npm/xdg-basedir is being purged
+381 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/xdg-basedir
+382 silly gentlyRm /home/loptt/.npm/yallist is being purged
+383 verbose gentlyRm don't care about contents; nuking /home/loptt/.npm/yallist
+384 silly vacuum-fs purging /home/loptt/.npm/_cacache
+385 silly vacuum-fs purging /home/loptt/.npm/_locks
+386 silly vacuum-fs purging /home/loptt/.npm/abbrev
+387 silly vacuum-fs purging /home/loptt/.npm/accepts
+388 silly vacuum-fs purging /home/loptt/.npm/anonymous-cli-metrics.json
+389 silly vacuum-fs purging /home/loptt/.npm/ansi-align
+390 silly vacuum-fs purging /home/loptt/.npm/ansi-regex
+391 silly vacuum-fs purging /home/loptt/.npm/ansi-styles
+392 silly vacuum-fs purging /home/loptt/.npm/anymatch
+393 silly vacuum-fs purging /home/loptt/.npm/array-flatten
+394 silly vacuum-fs purging /home/loptt/.npm/balanced-match
+395 silly vacuum-fs purging /home/loptt/.npm/basic-auth
+396 silly vacuum-fs purging /home/loptt/.npm/binary-extensions
+397 silly vacuum-fs purging /home/loptt/.npm/bluebird
+398 silly vacuum-fs purging /home/loptt/.npm/body-parser
+399 silly vacuum-fs purging /home/loptt/.npm/boxen
+400 silly vacuum-fs purging /home/loptt/.npm/brace-expansion
+401 silly vacuum-fs purging /home/loptt/.npm/braces
+402 silly vacuum-fs purging /home/loptt/.npm/bson
+403 silly vacuum-fs purging /home/loptt/.npm/buffer-equal-constant-time
+404 silly vacuum-fs purging /home/loptt/.npm/bytes
+405 silly vacuum-fs purging /home/loptt/.npm/camelcase
+406 silly vacuum-fs purging /home/loptt/.npm/capture-stack-trace
+407 silly vacuum-fs purging /home/loptt/.npm/chalk
+408 silly vacuum-fs purging /home/loptt/.npm/chokidar
+409 silly vacuum-fs purging /home/loptt/.npm/ci-info
+410 silly vacuum-fs purging /home/loptt/.npm/cli-boxes
+411 silly vacuum-fs purging /home/loptt/.npm/color-convert
+412 silly vacuum-fs purging /home/loptt/.npm/color-name
+413 silly vacuum-fs purging /home/loptt/.npm/concat-map
+414 silly vacuum-fs purging /home/loptt/.npm/configstore
+415 silly vacuum-fs purging /home/loptt/.npm/content-disposition
+416 silly vacuum-fs purging /home/loptt/.npm/content-type
+417 silly vacuum-fs purging /home/loptt/.npm/cookie
+418 silly vacuum-fs purging /home/loptt/.npm/cookie-signature
+419 silly vacuum-fs purging /home/loptt/.npm/create-error-class
+420 silly vacuum-fs purging /home/loptt/.npm/cross-spawn
+421 silly vacuum-fs purging /home/loptt/.npm/crypto-random-string
+422 silly vacuum-fs purging /home/loptt/.npm/debug
+423 silly vacuum-fs purging /home/loptt/.npm/deep-extend
+424 silly vacuum-fs purging /home/loptt/.npm/depd
+425 silly vacuum-fs purging /home/loptt/.npm/destroy
+426 silly vacuum-fs purging /home/loptt/.npm/dot-prop
+427 silly vacuum-fs purging /home/loptt/.npm/duplexer3
+428 silly vacuum-fs purging /home/loptt/.npm/ecdsa-sig-formatter
+429 silly vacuum-fs purging /home/loptt/.npm/ee-first
+430 silly vacuum-fs purging /home/loptt/.npm/encodeurl
+431 silly vacuum-fs purging /home/loptt/.npm/escape-html
+432 silly vacuum-fs purging /home/loptt/.npm/escape-string-regexp
+433 silly vacuum-fs purging /home/loptt/.npm/etag
+434 silly vacuum-fs purging /home/loptt/.npm/execa
+435 silly vacuum-fs purging /home/loptt/.npm/express
+436 silly vacuum-fs purging /home/loptt/.npm/fill-range
+437 silly vacuum-fs purging /home/loptt/.npm/finalhandler
+438 silly vacuum-fs purging /home/loptt/.npm/forwarded
+439 silly vacuum-fs purging /home/loptt/.npm/fresh
+440 silly vacuum-fs purging /home/loptt/.npm/get-stream
+441 silly vacuum-fs purging /home/loptt/.npm/glob-parent
+442 silly vacuum-fs purging /home/loptt/.npm/global-dirs
+443 silly vacuum-fs purging /home/loptt/.npm/got
+444 silly vacuum-fs purging /home/loptt/.npm/graceful-fs
+445 silly vacuum-fs purging /home/loptt/.npm/has-flag
+446 silly vacuum-fs purging /home/loptt/.npm/http-errors
+447 silly vacuum-fs purging /home/loptt/.npm/iconv-lite
+448 silly vacuum-fs purging /home/loptt/.npm/ignore-by-default
+449 silly vacuum-fs purging /home/loptt/.npm/import-lazy
+450 silly vacuum-fs purging /home/loptt/.npm/imurmurhash
+451 silly vacuum-fs purging /home/loptt/.npm/inherits
+452 silly vacuum-fs purging /home/loptt/.npm/ini
+453 silly vacuum-fs purging /home/loptt/.npm/ipaddr.js
+454 silly vacuum-fs purging /home/loptt/.npm/is-binary-path
+455 silly vacuum-fs purging /home/loptt/.npm/is-ci
+456 silly vacuum-fs purging /home/loptt/.npm/is-extglob
+457 silly vacuum-fs purging /home/loptt/.npm/is-fullwidth-code-point
+458 silly vacuum-fs purging /home/loptt/.npm/is-glob
+459 silly vacuum-fs purging /home/loptt/.npm/is-installed-globally
+460 silly vacuum-fs purging /home/loptt/.npm/is-npm
+461 silly vacuum-fs purging /home/loptt/.npm/is-number
+462 silly vacuum-fs purging /home/loptt/.npm/is-obj
+463 silly vacuum-fs purging /home/loptt/.npm/is-path-inside
+464 silly vacuum-fs purging /home/loptt/.npm/is-redirect
+465 silly vacuum-fs purging /home/loptt/.npm/is-retry-allowed
+466 silly vacuum-fs purging /home/loptt/.npm/is-stream
+467 silly vacuum-fs purging /home/loptt/.npm/isexe
+468 silly vacuum-fs purging /home/loptt/.npm/jsonwebtoken
+469 silly vacuum-fs purging /home/loptt/.npm/jwa
+470 silly vacuum-fs purging /home/loptt/.npm/jws
+471 silly vacuum-fs purging /home/loptt/.npm/kareem
+472 silly vacuum-fs purging /home/loptt/.npm/latest-version
+473 silly vacuum-fs purging /home/loptt/.npm/lodash.includes
+474 silly vacuum-fs purging /home/loptt/.npm/lodash.isboolean
+475 silly vacuum-fs purging /home/loptt/.npm/lodash.isinteger
+476 silly vacuum-fs purging /home/loptt/.npm/lodash.isnumber
+477 silly vacuum-fs purging /home/loptt/.npm/lodash.isplainobject
+478 silly vacuum-fs purging /home/loptt/.npm/lodash.isstring
+479 silly vacuum-fs purging /home/loptt/.npm/lodash.once
+480 silly vacuum-fs purging /home/loptt/.npm/lowercase-keys
+481 silly vacuum-fs purging /home/loptt/.npm/lru-cache
+482 silly vacuum-fs purging /home/loptt/.npm/make-dir
+483 silly vacuum-fs purging /home/loptt/.npm/media-typer
+484 silly vacuum-fs purging /home/loptt/.npm/memory-pager
+485 silly vacuum-fs purging /home/loptt/.npm/merge-descriptors
+486 silly vacuum-fs purging /home/loptt/.npm/methods
+487 silly vacuum-fs purging /home/loptt/.npm/mime
+488 silly vacuum-fs purging /home/loptt/.npm/mime-db
+489 silly vacuum-fs purging /home/loptt/.npm/mime-types
+490 silly vacuum-fs purging /home/loptt/.npm/minimatch
+491 silly vacuum-fs purging /home/loptt/.npm/minimist
+492 silly vacuum-fs purging /home/loptt/.npm/mongodb
+493 silly vacuum-fs purging /home/loptt/.npm/mongoose
+494 silly vacuum-fs purging /home/loptt/.npm/mongoose-legacy-pluralize
+495 silly vacuum-fs purging /home/loptt/.npm/morgan
+496 silly vacuum-fs purging /home/loptt/.npm/mpath
+497 silly vacuum-fs purging /home/loptt/.npm/mquery
+498 silly vacuum-fs purging /home/loptt/.npm/ms
+499 silly vacuum-fs purging /home/loptt/.npm/negotiator
+500 silly vacuum-fs purging /home/loptt/.npm/nodemon
+501 silly vacuum-fs purging /home/loptt/.npm/nopt
+502 silly vacuum-fs purging /home/loptt/.npm/normalize-path
+503 silly vacuum-fs purging /home/loptt/.npm/npm
+504 silly vacuum-fs purging /home/loptt/.npm/npm-run-path
+505 silly vacuum-fs purging /home/loptt/.npm/on-finished
+506 silly vacuum-fs purging /home/loptt/.npm/on-headers
+507 silly vacuum-fs purging /home/loptt/.npm/p-finally
+508 silly vacuum-fs purging /home/loptt/.npm/package-json
+509 silly vacuum-fs purging /home/loptt/.npm/parseurl
+510 silly vacuum-fs purging /home/loptt/.npm/path
+511 silly vacuum-fs purging /home/loptt/.npm/path-is-inside
+512 silly vacuum-fs purging /home/loptt/.npm/path-key
+513 silly vacuum-fs purging /home/loptt/.npm/path-to-regexp
+514 silly vacuum-fs purging /home/loptt/.npm/picomatch
+515 silly vacuum-fs purging /home/loptt/.npm/pify
+516 silly vacuum-fs purging /home/loptt/.npm/prepend-http
+517 silly vacuum-fs purging /home/loptt/.npm/process
+518 silly vacuum-fs purging /home/loptt/.npm/proxy-addr
+519 silly vacuum-fs purging /home/loptt/.npm/pseudomap
+520 silly vacuum-fs purging /home/loptt/.npm/pstree.remy
+521 silly vacuum-fs purging /home/loptt/.npm/qs
+522 silly vacuum-fs purging /home/loptt/.npm/range-parser
+523 silly vacuum-fs purging /home/loptt/.npm/raw-body
+524 silly vacuum-fs purging /home/loptt/.npm/rc
+525 silly vacuum-fs purging /home/loptt/.npm/readdirp
+526 silly vacuum-fs purging /home/loptt/.npm/regexp-clone
+527 silly vacuum-fs purging /home/loptt/.npm/registry-auth-token
+528 silly vacuum-fs purging /home/loptt/.npm/registry-url
+529 silly vacuum-fs purging /home/loptt/.npm/registry.npmjs.org
+530 silly vacuum-fs purging /home/loptt/.npm/require_optional
+531 silly vacuum-fs purging /home/loptt/.npm/resolve-from
+532 silly vacuum-fs purging /home/loptt/.npm/safe-buffer
+533 silly vacuum-fs purging /home/loptt/.npm/safer-buffer
+534 silly vacuum-fs purging /home/loptt/.npm/saslprep
+535 silly vacuum-fs purging /home/loptt/.npm/semver
+536 silly vacuum-fs purging /home/loptt/.npm/semver-diff
+537 silly vacuum-fs purging /home/loptt/.npm/send
+538 silly vacuum-fs purging /home/loptt/.npm/serve-static
+539 silly vacuum-fs purging /home/loptt/.npm/setprototypeof
+540 silly vacuum-fs purging /home/loptt/.npm/shebang-command
+541 silly vacuum-fs purging /home/loptt/.npm/shebang-regex
+542 silly vacuum-fs purging /home/loptt/.npm/sift
+543 silly vacuum-fs purging /home/loptt/.npm/signal-exit
+544 silly vacuum-fs purging /home/loptt/.npm/sliced
+545 silly vacuum-fs purging /home/loptt/.npm/sparse-bitfield
+546 silly vacuum-fs purging /home/loptt/.npm/statuses
+547 silly vacuum-fs purging /home/loptt/.npm/string-width
+548 silly vacuum-fs purging /home/loptt/.npm/strip-ansi
+549 silly vacuum-fs purging /home/loptt/.npm/strip-eof
+550 silly vacuum-fs purging /home/loptt/.npm/strip-json-comments
+551 silly vacuum-fs purging /home/loptt/.npm/supports-color
+552 silly vacuum-fs purging /home/loptt/.npm/term-size
+553 silly vacuum-fs purging /home/loptt/.npm/timed-out
+554 silly vacuum-fs purging /home/loptt/.npm/to-regex-range
+555 silly vacuum-fs purging /home/loptt/.npm/toidentifier
+556 silly vacuum-fs purging /home/loptt/.npm/touch
+557 silly vacuum-fs purging /home/loptt/.npm/type-is
+558 silly vacuum-fs purging /home/loptt/.npm/undefsafe
+559 silly vacuum-fs purging /home/loptt/.npm/unique-string
+560 silly vacuum-fs purging /home/loptt/.npm/unpipe
+561 silly vacuum-fs purging /home/loptt/.npm/unzip-response
+562 silly vacuum-fs purging /home/loptt/.npm/update-notifier
+563 silly vacuum-fs purging /home/loptt/.npm/url-parse-lax
+564 silly vacuum-fs purging /home/loptt/.npm/util
+565 silly vacuum-fs purging /home/loptt/.npm/utils-merge
+566 silly vacuum-fs purging /home/loptt/.npm/uuid
+567 silly vacuum-fs purging /home/loptt/.npm/vary
+568 silly vacuum-fs purging /home/loptt/.npm/which
+569 silly vacuum-fs purging /home/loptt/.npm/widest-line
+570 silly vacuum-fs purging /home/loptt/.npm/write-file-atomic
+571 silly vacuum-fs purging /home/loptt/.npm/xdg-basedir
+572 silly vacuum-fs purging /home/loptt/.npm/yallist
+573 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+574 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+575 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+576 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+577 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+578 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+579 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+580 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+581 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+582 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+583 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+584 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+585 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+586 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+587 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+588 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+589 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+590 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+591 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+592 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+593 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+594 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+595 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+596 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+597 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+598 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+599 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+600 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+601 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+602 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+603 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+604 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+605 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+606 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+607 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+608 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+609 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+610 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+611 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+612 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+613 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+614 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+615 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+616 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+617 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+618 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+619 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+620 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+621 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+622 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+623 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+624 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+625 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+626 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+627 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+628 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+629 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+630 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+631 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+632 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+633 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+634 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+635 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+636 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+637 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+638 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+639 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+640 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+641 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+642 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+643 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+644 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+645 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+646 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+647 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+648 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+649 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+650 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+651 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+652 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+653 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+654 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+655 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+656 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+657 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+658 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+659 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+660 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+661 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+662 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+663 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+664 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+665 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+666 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+667 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+668 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+669 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+670 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+671 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+672 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+673 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+674 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+675 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+676 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+677 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+678 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+679 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+680 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+681 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+682 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+683 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+684 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+685 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+686 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+687 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+688 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+689 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+690 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+691 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+692 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+693 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+694 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+695 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+696 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+697 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+698 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+699 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+700 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+701 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+702 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+703 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+704 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+705 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+706 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+707 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+708 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+709 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+710 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+711 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+712 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+713 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+714 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+715 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+716 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+717 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+718 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+719 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+720 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+721 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+722 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+723 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+724 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+725 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+726 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+727 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+728 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+729 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+730 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+731 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+732 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+733 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+734 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+735 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+736 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+737 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+738 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+739 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+740 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+741 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+742 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+743 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+744 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+745 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+746 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+747 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+748 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+749 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+750 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+751 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+752 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+753 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+754 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+755 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+756 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+757 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+758 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+759 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+760 silly vacuum-fs quitting because other entries in /home/loptt/.npm
+761 verbose stack Error: EACCES: permission denied, rmdir '/home/loptt/.npm/_cacache/content-v2'
+762 verbose cwd /mnt/b/Development/GitHub/group-munch/client
+763 error Linux 4.4.0-18362-Microsoft
+764 error argv "/usr/bin/node" "/usr/bin/npm" "cache" "clean" "-f"
+765 error node v8.10.0
+766 error npm  v3.5.2
+767 error path /home/loptt/.npm/_cacache/content-v2
+768 error code EACCES
+769 error errno -13
+770 error syscall rmdir
+771 error Error: EACCES: permission denied, rmdir '/home/loptt/.npm/_cacache/content-v2'
+771 error  { Error: EACCES: permission denied, rmdir '/home/loptt/.npm/_cacache/content-v2'
+771 error   errno: -13,
+771 error   code: 'EACCES',
+771 error   syscall: 'rmdir',
+771 error   path: '/home/loptt/.npm/_cacache/content-v2' }
+772 error Please try running this command again as root/Administrator.
+773 verbose exit [ -13, true ]

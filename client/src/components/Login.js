@@ -24,6 +24,7 @@ export default class Login extends Component {
     }
 
     handleSubmit(event) {
+        event.preventDefault();
         const { email, password } = this.state;
     
         axios
@@ -45,7 +46,6 @@ export default class Login extends Component {
           .catch(error => {
             console.log("login error", error);
           });
-        event.preventDefault();
       }
 
     render() {

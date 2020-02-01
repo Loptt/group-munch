@@ -1,0 +1,47 @@
+.dot {
+    height: 70px;
+    width: 70px;
+    background-color: #30e3ca;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 30px;
+    box-shadow: 0px 0px 10px #aaaaaa;
+}
+
+.title {
+    margin: 10px;
+}
+
+.add-button {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+    font-size: 40px;
+    color: white;
+}
+
+.btn-flat {
+    background-color: #e4f9f5;
+}
+
+
+.group-card {
+    margin: auto;
+    margin-top: 25px;
+}
+
+.group-container {
+    text-align: center;
+}
+
+@media (min-width: 992px) {
+    .group-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .group-card {
+        margin: 30px;
+    }
+}

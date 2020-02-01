@@ -4,6 +4,7 @@ import './App.css';
 import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register'
+import NewGroup from "./components/NewGroup";
 import {SERVER_URL} from './config';
 
 export default class App extends Component {
@@ -121,6 +122,17 @@ export default class App extends Component {
                     path={"/register"}
                     render={props => (
                     <Register
+                        {...props}
+                        loggedIn={this.state.loggedIn}
+                        handleSuccessfulAuth={this.handleSuccessfulAuth}
+                    />
+                    )}
+                />
+                <Route
+                    exact
+                    path={"/new/group"}
+                    render={props => (
+                    <NewGroup
                         {...props}
                         loggedIn={this.state.loggedIn}
                         handleSuccessfulAuth={this.handleSuccessfulAuth}

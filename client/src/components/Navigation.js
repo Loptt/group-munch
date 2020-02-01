@@ -7,7 +7,7 @@ export default function Navigation (props) {
 
     return (
         <>
-            <Navbar bg="flat" variant="dark" className="main-navbar" expand="lg">
+            <Navbar bg="flat" variant="dark" className="main-navbar" expand="lg" fixed='top'>
                 <Navbar.Brand href="/">GroupMunch</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">

@@ -1,3 +1,7 @@
+.add-place-form {
+    margin-top: 25px;
+}
+
 .members {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -18,4 +22,13 @@
 
 .cancel-member:hover {
     text-decoration: underline;    
+}
+
+.group-card {
+    margin: auto;
+    margin-top: 25px;
+}
+
+.group-container {
+    text-align: center;
 }

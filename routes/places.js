@@ -11,9 +11,9 @@ let {PlaceController} = require('../models/place');
 let ServerError = require('../error');
 
 router.post('/create', jsonParser, (req, res) => {
-    let {name, description, distanceCategory, priceCategory, group} = req.body;
+    let {name, distanceCategory, priceCategory, group} = req.body;
 
-    if (name == undefined || description == undefined || distanceCategory == undefined 
+    if (name == undefined || distanceCategory == undefined 
             || priceCategory == undefined || group == undefined) {
         res.statusMessage = "Parameters to create group incomplete";
         return res.status(406).send();
@@ -22,7 +22,7 @@ router.post('/create', jsonParser, (req, res) => {
     let image = places[Math.floor(Math.random() * places.length)];
 
     let newPlace = {
-        name, description, distanceCategory, priceCategory, group, image
+        name, distanceCategory, priceCategory, group, image
     }
 
     GroupController.getById(group)

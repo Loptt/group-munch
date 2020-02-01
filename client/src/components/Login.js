@@ -1,12 +1,22 @@
-import React, { Component, useState } from "react";
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import Container from "react-bootstrap/Container";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+       checkLogin();
+    }, [props.loggedIn]);
+
+    const checkLogin = () => {
+        if (props.loggedIn) {
+            props.history.push("/");
+        }
+    }
 
     const onEmailChange = event => {
         setEmail(event.target.value);
@@ -22,7 +32,14 @@ export default function Login(props) {
 
         let url = "http://localhost:8080/api/login";
         let settings = {
-            method: "POST"
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
         }
 
         fetch(url, settings)
@@ -30,28 +47,17 @@ export default function Login(props) {
                 if (response.ok) {
                     return response.json();
                 }
+
+                throw new Error(response.statusText);
             })
             .then(responseJSON => {
-                console.log(responseJSON);
-            })
-    /*
-        axios
-            .post(
-                "http://localhost:8080/api/login",
-                {
-                    'email': email,
-                    'password': password
-                },
-                { withCredentials: true }
-            )
-            .then(response => {
-                if (response.data.logged_in) {
-                this.props.handleSuccessfulAuth(response.data);
-                }
+                props.handleSuccessfulAuth(responseJSON);
+                props.history.push("/");
+
             })
             .catch(error => {
-                console.log("login error", error);
-            });*/
+                console.log(error);
+            })
     }
 
     return (
@@ -59,15 +65,16 @@ export default function Login(props) {
             <h1>Login</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group>
-                    <Form.Control type="email" placeholder="Email" onChange={onEmailChange}/>
+                    <Form.Control type="email" placeholder="Email" onChange={onEmailChange} required/>
                 </Form.Group>
                 <Form.Group>
-                    <Form.Control type="password" placeholder="Password" onChange={onPasswordChange}/>
+                    <Form.Control type="password" placeholder="Password" onChange={onPasswordChange} required/>
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
             </Form>
+            <p>Or register <Link to="/register">here</Link></p>
         </Container>
     );
 }

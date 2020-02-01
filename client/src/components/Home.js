@@ -1,27 +1,31 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container"
+import Navigation from "./Navigation"
 
-export default class Home extends Component {
-    constructor(props) {
-        super(props);
-    }
+export default function Home (props) {
 
-    checkLogin() {
-        return this.props.loggedIn;
-    }
+    useEffect(() => {
+        checkLogin();
+    }, [])
 
-    componentDidMount() {
-        if (!this.checkLogin()) {
-            this.props.history.push("/login");
+    const checkLogin = () => {
+        if (!props.loggedIn) {
+            props.history.push("/login");
         }
     }
 
-    render() {
-        return (
-            <Container>
-                <h1>Hola</h1>
-            </Container>
-        );
+    const handleLogout = () => {
+        props.logout();
     }
+
+    return (
+        <>
+            <Navigation handleLogout={handleLogout}/>
+            <Container>
+                <h1>Groups</h1>
+            </Container>
+        </>
+    );
+
 }
 

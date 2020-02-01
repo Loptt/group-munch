@@ -18,13 +18,13 @@ let placeCollection = mongoose.Schema({
     name: {type: String},
     description: {type: String},
     location: {type: String},
-    distanceCategory: distanceEnum,
-    priceCategory: priceEnum
+    distanceCategory: Number,
+    priceCategory: Number
 });
 
 let voteCollection = mongoose.Schema({
-    pricePreference: priceEnum,
-    distancePreference: distanceEnum,
+    pricePreference: Number,
+    distancePreference: Number,
     dateTimeVoted: Date
 });
 
@@ -39,6 +39,7 @@ let groupCollection = mongoose.Schema({
     description: {type: String},
     dateCreated: Date,
     voteFrequency: Number,
+    image: String,
     manager: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
@@ -55,7 +56,7 @@ let Group = mongoose.model('groups', groupCollection);
 
 let GroupController = {
     getAll: function() {
-        Group.find()
+        return Group.find()
             .then(groups => {
                 return groups;
             })
@@ -64,7 +65,7 @@ let GroupController = {
             });
     },
     getById: function(id) {
-        Group.find({id: id})
+        return Group.find({id: id})
             .then(group => {
                 return group;
             })
@@ -73,9 +74,18 @@ let GroupController = {
             });
     },
     getByMemberId: function(id) {
-        Group.find({members: {$in: [id]}})
+        return Group.find({members: {$in: [id]}})
             .then(gs => {
                 return gs;
+            })
+            .catch(error => {
+                throw Error(error);
+            });
+    },
+    getMembersOfGroupById: function(id) {
+        return Group.find({id: id}).populate('members').exec()
+            .then(group => {
+                return group;
             })
             .catch(error => {
                 throw Error(error);
@@ -109,3 +119,5 @@ let GroupController = {
             });
     }
 }
+
+module.exports = {GroupController}

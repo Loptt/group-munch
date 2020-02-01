@@ -29,7 +29,8 @@ export default class App extends Component {
         this.setState({
             loggedIn: true,
             user: {
-                id: response.id
+                id: response.id,
+                token: response.token
             }
         });
 

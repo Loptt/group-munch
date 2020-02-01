@@ -11,6 +11,7 @@ let app = express();
 
 // Routes
 let userRoutes = require('./routes/users');
+let groupRoutes = require('./routes/groups');
 let authRoutes = require('./routes/auth');
 
 // Custom dependencies
@@ -22,6 +23,7 @@ app.use(cors());
 app.use(morgan('dev'));
 
 app.use('/api/users', userRoutes);
+app.use('/api/groups', groupRoutes);
 app.use('/api', authRoutes);
 
 let server;

@@ -4,12 +4,13 @@ let jsonParser = bodyParser.json();
 let router = express.Router();
 let path = require('path');
 let jwt = require('jsonwebtoken');
+let images = require('../images');
 
-let {GroupCountroller} = require('../models/group');
+let {GroupController} = require('../models/group');
 let ServerError = require('../error');
 
-router.get('/api/group-by-id', jsonParser, (req, res) => {
-    let id = req.query.id;
+router.get('/:id', jsonParser, (req, res) => {
+    let id = req.params.id;
 
     if (id == undefined) {
         res.statusMessage = "No id given to get group";
@@ -35,8 +36,8 @@ router.get('/api/group-by-id', jsonParser, (req, res) => {
         });
 });
 
-router.get('/api/members-of-group', jsonParser, (req, res) => {
-    let id = req.query.id;
+router.get('/members/:id', jsonParser, (req, res) => {
+    let id = req.params.id;
 
     if (id == undefined) {
         res.statusMessage = "No id given to get members of group";
@@ -64,18 +65,25 @@ router.get('/api/members-of-group', jsonParser, (req, res) => {
 });
 
 
-router.post('/api/create-group', jsonParser, (req, res) => {
+router.post('/create', jsonParser, (req, res) => {
     let groupName = req.body.name;
     let groupDescription = req.body.description;
+    let managerId = req.body.manager_id;
 
-    if (groupName == undefined || description == undefined) {
+    if (groupName == undefined || groupDescription == undefined || managerId == undefined) {
         res.statusMessage = "Parameters to create group incomplete";
         return res.status(406).send();
     }
 
+    let image = images[Math.floor(Math.random()) * images.length];
+
     let newGroup = {
         name: groupName,
-        description: groupDescription
+        description: groupDescription,
+        dateCreated: new Date(),
+        image: image,
+        manager: managerId,
+        members: [managerId]
     }
 
     GroupController.create(newGroup)
@@ -94,8 +102,8 @@ router.post('/api/create-group', jsonParser, (req, res) => {
         });
 });
 
-router.put('/api/update-group', jsonParser, async (req, res) => {
-    let id = req.query.id;
+router.put('/update/:id', jsonParser, async (req, res) => {
+    let id = req.params.id;
 
     if (id == undefined) {
         res.statusMessage = "No id given to update";
@@ -141,8 +149,8 @@ router.put('/api/update-group', jsonParser, async (req, res) => {
         });
 });
 
-router.get('/api/groups-of-user', jsonParser, (req, res) => {
-    id = req.body.id;
+router.get('/by-member/:id', jsonParser, (req, res) => {
+    id = req.params.id;
 
     if (id == undefined) {
         res.statusMessage = "No ID given to show groups of user";
@@ -169,17 +177,4 @@ router.get('/api/groups-of-user', jsonParser, (req, res) => {
         });
 });
 
-router.get('/api/validate', (req, res) => {
-    let token = req.headers.authorization;
-    token = token.replace('Bearer ', '');
-
-    jwt.verify(token, 'secret', (err, user) => {
-        if (err) {
-            res.statusMessage = "Invalid token";
-            return res.status(401).send();
-        }
-
-        console.log(user);
-        return res.status(200).json({message: "Success"});
-    });
-});
+module.exports = router;

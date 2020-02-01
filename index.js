@@ -19,15 +19,10 @@ let {UserController} = require('./models/user');
 let middleware = require('./middleware');
 
 app.use(cors());
-app.use(express.static("public"));
 app.use(morgan('dev'));
 
 app.use('/api/users', userRoutes);
 app.use('/api', authRoutes);
-
-app.get('/', middleware.isLoggedIn, (req, res) => {
-    res.sendFile('/public/index.html', { root: __dirname })
-});
 
 let server;
 

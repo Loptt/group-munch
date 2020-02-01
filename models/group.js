@@ -2,26 +2,6 @@ let mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-const distanceEnum = {
-    SHORT: 'short',
-    MEDIUM: 'medium',
-    LONG: 'long'
-}
-
-const priceEnum = {
-    LOW: 'low',
-    MEDIUM: 'medium',
-    HIGH: 'high'
-}
-
-let placeCollection = mongoose.Schema({
-    name: {type: String},
-    description: {type: String},
-    location: {type: String},
-    distanceCategory: Number,
-    priceCategory: Number
-});
-
 let voteCollection = mongoose.Schema({
     pricePreference: Number,
     distancePreference: Number,
@@ -48,7 +28,6 @@ let groupCollection = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     }],
-    places: [placeCollection],
     votingEvents: [votingEventCollection]
 });
 

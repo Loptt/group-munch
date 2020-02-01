@@ -6,6 +6,7 @@
     display: inline-block;
     margin: 30px;
     box-shadow: 0px 0px 10px #aaaaaa;
+    pointer-events: auto;
 }
 
 .title {
@@ -18,7 +19,7 @@
     justify-content: flex-start;
     font-size: 40px;
     color: white;
-    width: 40%;
+    pointer-events: none;
 }
 
 .group-card {

@@ -66,7 +66,7 @@ export default function ViewGroup(props) {
                 throw new Error(response);
             })
             .then(responseJSON => {
-                console.log(responseJSON);
+                setShowAddMember(false);
                 fetchMembers();
             })
             .catch(error => {
@@ -119,6 +119,7 @@ export default function ViewGroup(props) {
             <Container>
                 <Jumbotron className='header'>
                     <h1 className="title">{group.name}</h1>
+                    <p>{group.description}</p>
                 </Jumbotron>
                 <Row>
                     <Col lg='6'>

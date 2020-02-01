@@ -1,0 +1,21 @@
+.members {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.add-btn {
+    margin-top: 12px;
+    margin-bottom: 25px;
+}
+
+.header {
+    margin-top: 10px;
+}
+.add-member-form {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.cancel-member:hover {
+    text-decoration: underline;    
+}

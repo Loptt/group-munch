@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './css/ViewGroup.css'
 import Navigation from './Navigation';
 import {SERVER_URL} from '../config'
 import Container from 'react-bootstrap/Container'
@@ -6,11 +7,16 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup'
 import Button from 'react-bootstrap/Button';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormControl from 'react-bootstrap/FormControl';
 
 export default function ViewGroup(props) {
     
     const [group, setGroup] = useState(props.group);
     const [members, setMembers] = useState([]);
+    const [memberEmail, setMemberEmail] = useState('');
+    const [showAddMember, setShowAddMember] = useState(false);
 
     useEffect(() => {
         console.log(group);
@@ -39,26 +45,68 @@ export default function ViewGroup(props) {
             })
     }
 
+    const postNewMember = (email) => {
+        console.log(email);
+    }
+
     const handleLogout = () => {
         props.logout();
+    }
+
+    const handleClickAddMember = event => {
+        if (showAddMember) {
+            if (memberEmail !== "") {
+                postNewMember(memberEmail);
+            } else {
+                setShowAddMember(false);
+            }
+        } else {
+            setShowAddMember(true);
+        }
+    }
+
+    const handleCancelAddMember = event => {
+        setShowAddMember(false);
+    }
+
+    const onEmailChange = event => {
+        setMemberEmail(event.target.value);
+    }
+
+    const memberForm = () => {
+        return (
+            <InputGroup className='mb-3 add-member-form'>
+                <FormControl type='email' placeholder="Member Email" onChange={onEmailChange}/>
+            </InputGroup>
+        )
+    }
+
+    const cancelMemberFrom = () => {
+        return (
+            <p className="cancel-member" onClick={handleCancelAddMember}>Cancel</p>
+        )
     }
 
     return (
         <>
             <Navigation handleLogout={handleLogout}/>
             <Container>
-                <h1 className="title">{group.name}</h1>
+                <Jumbotron className='header'>
+                    <h1 className="title">{group.name}</h1>
+                </Jumbotron>
                 <Row>
                     <Col lg='6'>
                         <h2>Members</h2>
-                        <ListGroup>
+                        <ListGroup className='members'>
                             {members.map((member, i) => {
                                 return (
                                     <ListGroup.Item variant="light">{member.firstName} {member.lastName}</ListGroup.Item>
                                 )
                             })}
                         </ListGroup>
-                        <Button variant='flat' bg='flat'>Add member</Button>
+                        {showAddMember ? memberForm() : null}
+                        <Button variant='flat' bg='flat' className='add-btn' onClick={handleClickAddMember}>Add member</Button>
+                        {showAddMember ? cancelMemberFrom() : null}
                     </Col>
                     <Col lg='6'>
                         <h2>Places</h2>

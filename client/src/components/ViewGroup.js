@@ -46,7 +46,33 @@ export default function ViewGroup(props) {
     }
 
     const postNewMember = (email) => {
-        console.log(email);
+        let url = `${SERVER_URL}/api/groups/${group._id}/add_member_email`;
+        let settings = {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email_member: email
+            })
+        }
+
+        fetch(url, settings)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error(response);
+            })
+            .then(responseJSON => {
+                console.log(responseJSON);
+                fetchMembers();
+            })
+            .catch(error => {
+                console.log("ERROR...")
+                console.log(error.statusText);
+            })
     }
 
     const handleLogout = () => {

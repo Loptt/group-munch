@@ -101,7 +101,7 @@ let GroupController = {
             });
     },
     update: function(id, updatedGroup) {
-        return Group.findOneAndUpdate(id, updatedGroup)
+        return Group.findByIdAndUpdate(id, updatedGroup)
             .then(ug => {
                 return ug;
             })

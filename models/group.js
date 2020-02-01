@@ -83,7 +83,7 @@ let GroupController = {
             });
     },
     getMembersOfGroupById: function(id) {
-        return Group.find({id: id}).populate('members').exec()
+        return Group.findById(id).populate('members').exec()
             .then(group => {
                 return group;
             })

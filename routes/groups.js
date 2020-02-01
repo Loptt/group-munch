@@ -9,42 +9,17 @@ let images = require('../images');
 let {GroupController} = require('../models/group');
 let ServerError = require('../error');
 
-router.get('/:id', jsonParser, (req, res) => {
+router.get('/:id/members', jsonParser, (req, res) => {
     let id = req.params.id;
 
-    if (id == undefined) {
-        res.statusMessage = "No id given to get group";
-        return res.status(406).send();
-    }
-
-    GroupController.getById(id)
-        .then(group => {
-            if (group == null) {
-                throw new ServerError(404, "ID not found");
-            }
-            return res.status(200).json(user);
-        })
-        .catch(error => {
-            console.log(error);
-            if (error.code === 404) {
-                res.statusMessage = "Group not found with given id";
-                return res.status(404).send();
-            } else {
-                res.statusMessage = "Database error";
-                return res.status(500).send();
-            }
-        });
-});
-
-router.get('/members/:id', jsonParser, (req, res) => {
-    let id = req.params.id;
+    console.log('getting members...')
 
     if (id == undefined) {
         res.statusMessage = "No id given to get members of group";
         return res.status(406).send();
     }
 
-    GroupController.getById(id)
+    GroupController.getMembersOfGroupById(id)
         .then(group => {
             if (group == null) {
                 throw new ServerError(404, "ID not found");
@@ -75,7 +50,7 @@ router.post('/create', jsonParser, (req, res) => {
         return res.status(406).send();
     }
 
-    let image = images[Math.floor(Math.random()) * images.length];
+    let image = images[Math.floor(Math.random() * images.length)];
 
     let newGroup = {
         name: groupName,
@@ -169,6 +144,33 @@ router.get('/by-member/:id', jsonParser, (req, res) => {
             console.log(error);
             if (error.code === 404) {
                 res.statusMessage = "User not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
+        });
+});
+
+router.get('/:id', jsonParser, (req, res) => {
+    let id = req.params.id;
+
+    if (id == undefined) {
+        res.statusMessage = "No id given to get group";
+        return res.status(406).send();
+    }
+
+    GroupController.getById(id)
+        .then(group => {
+            if (group == null) {
+                throw new ServerError(404, "ID not found");
+            }
+            return res.status(200).json(group);
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.code === 404) {
+                res.statusMessage = "Group not found with given id";
                 return res.status(404).send();
             } else {
                 res.statusMessage = "Database error";

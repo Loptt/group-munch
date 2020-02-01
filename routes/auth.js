@@ -27,15 +27,14 @@ router.post('/login', jsonParser, (req, res) => {
             }
 
             let data = {
-                email: email,
                 id: user._id
             }
 
             let token = jwt.sign(data, 'secret', {
-                expiresIn: 60 * 5
+                expiresIn: 60 * 60
             });
 
-            return res.status(200).json({token});
+            return res.status(200).json({token: token, id: user._id});
         })
         .catch(error => {
             if (error.code === 404) {
@@ -48,18 +47,17 @@ router.post('/login', jsonParser, (req, res) => {
         })
 }); 
 
-router.get('/validate', (req, res) => {
-    let token = req.headers.authorization;
-    token = token.replace('Bearer ', '');
+router.get('/validate/:token', (req, res) => {
+    let token = req.params.token;
 
     jwt.verify(token, 'secret', (err, user) => {
         if (err) {
             res.statusMessage = "Invalid token";
-            return res.status(401).send();
+            return res.status(401).json({message: "error"});
         }
 
         console.log(user);
-        return res.status(200).json({message: "Success"});
+        return res.status(200).json({message: "success", id: user.id});
     });
 });
 

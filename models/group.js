@@ -2,18 +2,6 @@ let mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 
-let voteCollection = mongoose.Schema({
-    pricePreference: Number,
-    distancePreference: Number,
-    dateTimeVoted: Date
-});
-
-let votingEventCollection = mongoose.Schema({
-    dateTimeStart: Date,
-    datetimeEnd: Date,
-    vote: [voteCollection]
-});
-
 let groupCollection = mongoose.Schema({
     name: {type: String},
     description: {type: String},
@@ -28,7 +16,6 @@ let groupCollection = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
     }],
-    votingEvents: [votingEventCollection]
 });
 
 let Group = mongoose.model('groups', groupCollection);

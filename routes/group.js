@@ -43,14 +43,13 @@ router.get('/api/members-of-group', jsonParser, (req, res) => {
         return res.status(406).send();
     }
 
-    
-
     GroupController.getById(id)
         .then(group => {
             if (group == null) {
                 throw new ServerError(404, "ID not found");
             }
-            return res.status(200).json(user);
+
+            return res.status(200).json(group.members);
         })
         .catch(error => {
             console.log(error);
@@ -79,7 +78,20 @@ router.post('/api/create-group', jsonParser, (req, res) => {
         description: groupDescription
     }
 
-    return GroupController.create(newGroup);
+    GroupController.create(newGroup)
+        .then(ng => {
+            return res.status(201).json(ng);
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.code === 404) {
+                res.statusMessage = "Group couldn't be created";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
+        });
 });
 
 router.put('/api/update-group', jsonParser, async (req, res) => {

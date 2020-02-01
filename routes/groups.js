@@ -216,15 +216,10 @@ router.put('/:id_group/add_member_email', jsonParser, (req, res) => {
                 throw new ServerError(409, "Member already in group");
             }
 
-            console.log(user);
-            console.log("adding to array");
-
             let newGroup = {};
             let newMembers = foundGroup.members;
             newMembers.push(user._id);
             newGroup.members = newMembers;
-
-            console.log(newGroup);
 
             return GroupController.update(groupId, newGroup);
         })

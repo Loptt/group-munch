@@ -237,9 +237,9 @@ router.put('/:id_group/add_member_email', jsonParser, (req, res) => {
         });
 });
 
-router.delete('/:id-group/delete-member/:id-member', jsonParser, (req, res) => {
-    let groupId = req.params.id-group;
-    let memberId = req.params.id-member;
+router.delete('/:id_group/delete-member/:id_member', jsonParser, (req, res) => {
+    let groupId = req.params.id_group;
+    let memberId = req.params.id_member;
     
     if (groupId == undefined) {
         res.statusMessage = "No group id given to delete a member from the group";
@@ -258,18 +258,18 @@ router.delete('/:id-group/delete-member/:id-member', jsonParser, (req, res) => {
             }
 
             let member = group.members.find((user) => {
-                if (user.id === memberId) {
+                if (user === memberId) {
                     return user;
                 }
             });
 
-            if (member == undefined) {
+            if (member == undefined || member == null) {
                 res.statusMessage = "That member doesn't exist in the given group";
 
                 return res.status(404).send();
             }
 
-            let index = group.members.findIndex(user => user.id === memberId);
+            let index = group.members.findIndex(user => user === memberId);
             group.members.splice(index, 1);
             let newGroup = group;
 

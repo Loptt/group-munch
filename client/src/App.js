@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Register from './components/Register'
 import NewGroup from "./components/NewGroup";
+import ViewGroup from "./components/ViewGroup";
 import {SERVER_URL} from './config';
 
 export default class App extends Component {
@@ -13,7 +14,8 @@ export default class App extends Component {
 
         this.state = {
             loggedIn: false,
-            user: {}
+            user: {},
+            selectedGroup: {}
         }
     }
 
@@ -36,6 +38,12 @@ export default class App extends Component {
         });
 
         localStorage.setItem('gm_token', response.token);
+    }
+
+    handleSelectedGroup = (group) => {
+        this.setState({
+            selectedGroup: group
+        })
     }
 
     checkTokenLocalStorage() {
@@ -93,53 +101,68 @@ export default class App extends Component {
         return (
             <div className="App">
                 <BrowserRouter>
-                <Switch>
-                <Route
-                    exact
-                    path={"/"}
-                    render={props => (
-                    <Home
-                        {...props}
-                        loggedIn={this.state.loggedIn}
-                        user={this.state.user}
-                        logout={this.logout}
+                    <Switch>
+                    <Route
+                        exact
+                        path={"/"}
+                        render={props => (
+                        <Home
+                            {...props}
+                            loggedIn={this.state.loggedIn}
+                            user={this.state.user}
+                            logout={this.logout}
+                            handleSelectedGroup={this.handleSelectedGroup}
+                        />
+                        )}
                     />
-                    )}
-                />
-                <Route
-                    exact
-                    path={"/login"}
-                    render={props => (
-                    <Login
-                        {...props}
-                        loggedIn={this.state.loggedIn}
-                        handleSuccessfulAuth={this.handleSuccessfulAuth}
+                    <Route
+                        exact
+                        path={"/login"}
+                        render={props => (
+                        <Login
+                            {...props}
+                            loggedIn={this.state.loggedIn}
+                            handleSuccessfulAuth={this.handleSuccessfulAuth}
+                        />
+                        )}
                     />
-                    )}
-                />
-                <Route
-                    exact
-                    path={"/register"}
-                    render={props => (
-                    <Register
-                        {...props}
-                        loggedIn={this.state.loggedIn}
-                        handleSuccessfulAuth={this.handleSuccessfulAuth}
+                    <Route
+                        exact
+                        path={"/register"}
+                        render={props => (
+                        <Register
+                            {...props}
+                            loggedIn={this.state.loggedIn}
+                            handleSuccessfulAuth={this.handleSuccessfulAuth}
+                        />
+                        )}
                     />
-                    )}
-                />
-                <Route
-                    exact
-                    path={"/new/group"}
-                    render={props => (
-                    <NewGroup
-                        {...props}
-                        loggedIn={this.state.loggedIn}
-                        handleSuccessfulAuth={this.handleSuccessfulAuth}
+                    <Route
+                        exact
+                        path={"/new/group"}
+                        render={props => (
+                        <NewGroup
+                            {...props}
+                            loggedIn={this.state.loggedIn}
+                            user={this.state.user}
+                            logout={this.logout}
+                        />
+                        )}
                     />
-                    )}
-                />
-                </Switch>
+                    <Route
+                        exact
+                        path={"/view/group"}
+                        render={props => (
+                        <ViewGroup
+                            {...props}
+                            group={this.state.selectedGroup}
+                            loggedIn={this.state.loggedIn}
+                            user={this.state.user}
+                            logout={this.logout}
+                        />
+                        )}
+                    />
+                    </Switch>
                 </BrowserRouter>
             </div>
         );

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import {SERVER_URL} from '../config'
+import './css/Home.css';
 import Container from "react-bootstrap/Container";
 import Card from 'react-bootstrap/Card'
 import Navigation from "./Navigation";
 import Button from 'react-bootstrap/Button';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import {Plus} from 'react-bootstrap-icons';
-import './Home.css';
 
 export default function Home (props) {
 
@@ -20,6 +18,12 @@ export default function Home (props) {
 
         fetchGroups(id);
     }, []);
+
+    const checkLogin = () => {
+        if (!props.loggedIn) {
+            props.history.push("/login");
+        }
+    }
 
     const fetchGroups = (id) => {
         let url = `${SERVER_URL}/api/groups/by-member/${id}`;
@@ -37,17 +41,13 @@ export default function Home (props) {
             })
             .then(responseJSON => {
                 setGroups(responseJSON);
+                console.log(responseJSON);
             })
             .catch(error => {
                 console.log(error);
             })
     }
 
-    const checkLogin = () => {
-        if (!props.loggedIn) {
-            props.history.push("/login");
-        }
-    }
 
     const handleLogout = () => {
         props.logout();
@@ -55,6 +55,11 @@ export default function Home (props) {
 
     const handleMoreClick = (event) => {
         let id = event.target.value;
+        let group = groups.find(group => group._id === id);
+        
+        props.handleSelectedGroup(group);
+
+        props.history.push('/view/group');
     }
 
     const handleAddClick = (event) => {

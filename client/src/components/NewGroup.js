@@ -1,33 +1,97 @@
 import React, {useState, useEffect} from 'react';
+import './css/NewGroup.css'
+import {SERVER_URL} from '../config'
 import Navigation from './Navigation';
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 
 export default function NewGroup (props) {
+
+    const [name, setName] = useState("");
+    const [desc, setDesc] = useState("");
+
+    useEffect(() => {
+        checkLogin();
+    }, []);
+
+    const checkLogin = () => {
+        if (!props.loggedIn) {
+            props.history.push("/login");
+        }
+    }
+
+    const handleLogout = () => {
+        props.logout();
+    }
+    
     const handleSubmit = event => {
         event.preventDefault();
+
+        let url = `${SERVER_URL}/api/groups/create`;
+        let settings = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: name,
+                description: desc,
+                manager_id: props.user.id
+            })
+        }
+
+        fetch(url, settings)
+            .then(response => {
+                if (response.ok) {
+                    return response.json()
+                }
+
+                throw new Error();
+            })
+            .then(responseJSON => {
+                console.log(responseJSON);
+                props.history.push('/');
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
+    const onNameChange = event => {
+        setName(event.target.value);
+    }
+
+    const onDescChange = event => {
+        setDesc(event.target.value);
     }
 
     return (
         <>
-            <Navigation/>
+            <Navigation handleLogout={handleLogout}/>
             <Container>
                 <h1 className="title">
                     Create new Group
                 </h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group>
-                        <Form.Control type="text" placeholder="Name" required/>
+                        <Form.Control type="text" placeholder="Name" onChange={onNameChange} required/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control as="textarea" placeholder="Description" rows="3" required />
+                        <Form.Control as="textarea" placeholder="Description" rows="3" onChange={onDescChange} required />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
+                    <Button variant="flat" bg="flat" type="submit">
+                        Create
                     </Button>
                 </Form>
             </Container>
+            <style type="text/css">
+                {`
+                .btn-flat {
+                    background-color: #30e3ca;
+                }
+                `}
+            </style>
         </>
     )
 }

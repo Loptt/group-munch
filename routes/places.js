@@ -31,7 +31,7 @@ router.post('/create', jsonParser, (req, res) => {
                 throw new ServerError(404, "Group not found with ID");
             }
 
-            return PlaceController.create(newPlace)
+            return PlaceController.create(newPlace);
         })
         .then(np => {
             return res.status(201).json(np);
@@ -54,6 +54,79 @@ router.get('/groups/:group_id', jsonParser, (req, res) => {
     PlaceController.getByGroupId(id)
         .then(places => {
             return res.status(200).json(places);
+        })
+        .catch(error => {
+            console.log(error);
+            res.statusMessage = error.message;
+            res.status(error.code).send();
+        });
+});
+
+router.put('/update/:place_id', jsonParser, (req, res) => {
+    let id = req.params.place_id;
+
+    if (id == undefined) {
+        res.statusMessage = "No id given to update a place";
+        return res.status(406).send();
+    }
+
+    PlaceController.getById(id)
+        .then(place => {
+            if (place == null) {
+                throw new ServerError(404, "ID not found");
+            }
+
+            let {name, description, distanceCategory, priceCategory} = req.body;
+
+            if (name == undefined && description == undefined && distanceCategory == undefined && 
+                priceCategory == undefined) {
+                res.statusMessage = "No parameters to modify in update";
+                return res.status(409).send();
+            }
+
+            let newPlace = {};
+
+            if (name != undefined) {
+                newPlace.name = name;
+            }
+            if (description != undefined) {
+                newPlace.description = description;
+            }
+            if (distanceCategory != undefined) {
+                newPlace.distanceCategory = distanceCategory;
+            }
+            if (priceCategory != undefined) {
+                newPlace.priceCategory = priceCategory;
+            }
+
+            return PlaceController.update(id, newPlace);
+        })
+        .then(np => {
+            return res.status(202).json(np);
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.code === 404) {
+                res.statusMessage = "Place not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
+        });
+});
+
+router.delete('/delete/:place_id', jsonParser, (req, res) => {
+    let id = req.params.place_id;
+
+    if (id == undefined) {
+        res.statusMessage = "No id given to delete a place";
+        return res.status(406).send();
+    }
+
+    PlaceController.delete(id)
+        .then(dp => {
+            return res.status(202).json(dp);
         })
         .catch(error => {
             console.log(error);

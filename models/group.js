@@ -65,7 +65,7 @@ let GroupController = {
             });
     },
     getById: function(id) {
-        return Group.find({id: id})
+        return Group.findById(id)
             .then(group => {
                 return group;
             })

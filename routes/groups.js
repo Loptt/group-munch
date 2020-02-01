@@ -7,6 +7,7 @@ let jwt = require('jsonwebtoken');
 let images = require('../images');
 
 let {GroupController} = require('../models/group');
+let {UserController} = require('../models/user');
 let ServerError = require('../error');
 
 router.get('/:id/members', jsonParser, (req, res) => {
@@ -124,9 +125,9 @@ router.put('/update/:id', jsonParser, async (req, res) => {
         });
 });
 
-router.put('/:id-group/add-member/:id-member', jsonParser, async (req, res) => {
-    let groupId = req.params.id-group;
-    let memberId = req.params.id-member;
+router.put('/:id_group/add_member', jsonParser, (req, res) => {
+    let groupId = req.params.id_group;
+    let memberId = req.body.id_member;
 
     if (groupId == undefined) {
         res.statusMessage = "No group id given to add a member to the group";
@@ -138,31 +139,101 @@ router.put('/:id-group/add-member/:id-member', jsonParser, async (req, res) => {
         return res.status(406).send();
     }
 
-    GroupController.getById(id)
+    let foundGroup = {}
+
+    GroupController.getById(groupId)
         .then(group => {
             if (group == null) {
-                throw new ServerError(404, "ID not found");
+                throw new ServerError(404, "Group ID not found");
+            }
+
+            if (group.members.includes(memberId)) {
+                throw new ServerError(409, "Member already in group");
+            }
+
+            foundGroup = group;
+
+            return UserController.getById(memberId);
+        })
+        .then(user => {
+            if (user == null) {
+                throw new ServerError(404, "User ID not found");
             }
 
             let newGroup = {};
-            let newMembers = group.members;
+            let newMembers = foundGroup.members;
             newMembers.push(memberId);
             newGroup.members = newMembers;
 
             return GroupController.update(groupId, newGroup);
         })
         .then(ng => {
-            return res.status(202).json(ng);
+            if (ng == null) {
+                throw new ServerError(404, "Group ID not found");
+            }
+
+            return res.status(202).json(ng)
         })
         .catch(error => {
             console.log(error);
-            if (error.code === 404) {
-                res.statusMessage = "Group not found with given id";
-                return res.status(404).send();
-            } else {
-                res.statusMessage = "Database error";
-                return res.status(500).send();
+            res.statusMessage = error.message;
+            return res.status(error.code).send();
+        });
+});
+
+router.put('/:id_group/add_member_email', jsonParser, (req, res) => {
+    let groupId = req.params.id_group;
+    let memberEmail = req.body.email_member;
+
+    if (groupId == undefined) {
+        res.statusMessage = "No group id given to add a member to the group";
+        return res.status(406).send();
+    }
+
+    if (memberEmail == undefined) {
+        res.statusMessage = "No member email given to add a member to the group"
+        return res.status(406).send();
+    }
+
+    let foundGroup = {}
+
+    GroupController.getById(groupId)
+        .then(group => {
+            if (group == null) {
+                throw new ServerError(404, "Group ID not found");
             }
+
+            foundGroup = group;
+
+            return UserController.getByEmail(memberEmail);
+        })
+        .then(user => {
+            if (user == null) {
+                throw new ServerError(404, "User ID not found");
+            }
+
+            if (foundGroup.members.includes(user._id)) {
+                throw new ServerError(409, "Member already in group");
+            }
+
+            let newGroup = {};
+            let newMembers = foundGroup.members;
+            newMembers.push(user._id);
+            newGroup.members = newMembers;
+
+            return GroupController.update(groupId, newGroup);
+        })
+        .then(ng => {
+            if (ng == null) {
+                throw new ServerError(404, "Group ID not found");
+            }
+
+            return res.status(202).json(ng)
+        })
+        .catch(error => {
+            console.log(error);
+            res.statusMessage = error.message;
+            return res.status(error.code).send();
         });
 });
 

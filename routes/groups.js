@@ -149,6 +149,101 @@ router.put('/update/:id', jsonParser, async (req, res) => {
         });
 });
 
+router.put('/:id-group/add-member/:id-member', jsonParser, async (req, res) => {
+    let groupId = req.params.id-group;
+    let memberId = req.params.id-member;
+
+    if (groupId == undefined) {
+        res.statusMessage = "No group id given to add a member to the group";
+        return res.status(406).send();
+    }
+
+    if (memberId == undefined) {
+        res.statusMessage = "No member id given to add a member to the group"
+        return res.status(406).send();
+    }
+
+    GroupController.getById(id)
+        .then(group => {
+            if (group == null) {
+                throw new ServerError(404, "ID not found");
+            }
+
+            let newGroup = {};
+            let newMembers = group.members;
+            newMembers.push(memberId);
+            newGroup.members = newMembers;
+
+            return GroupController.update(groupId, newGroup);
+        })
+        .then(ng => {
+            return res.status(202).json(ng);
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.code === 404) {
+                res.statusMessage = "Group not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
+        });
+});
+
+router.delete('/:id-group/delete-member/:id-member', jsonParser, (req, res) => {
+    let groupId = req.params.id-group;
+    let memberId = req.params.id-member;
+    
+    if (groupId == undefined) {
+        res.statusMessage = "No group id given to delete a member from the group";
+        return res.status(406).send();
+    }
+
+    if (memberId == undefined) {
+        res.statusMessage = "No member id given to delete a member from the group"
+        return res.status(406).send();
+    }
+
+    GroupController.getById(id)
+        .then(group => {
+            if (group == null) {
+                throw new ServerError(404);
+            }
+
+            let member = group.members.find((user) => {
+                if (user.id === memberId) {
+                    return user;
+                }
+            });
+
+            if (member == undefined) {
+                res.statusMessage = "That member doesn't exist in the given group";
+
+                return res.status(404).send();
+            }
+
+            let index = group.members.findIndex(user => user.id === memberId);
+            group.members.splice(index, 1);
+            let newGroup = group;
+
+            return GroupController.delete(groupId, newGroup);
+        })
+        .then(ng => {
+            return res.status(202).json(ng);
+        })
+        .catch(error => {
+            console.log(error);
+            if (error.code === 404) {
+                res.statusMessage = "Group not found with given id";
+                return res.status(404).send();
+            } else {
+                res.statusMessage = "Database error";
+                return res.status(500).send();
+            }
+        });
+});
+
 router.get('/by-member/:id', jsonParser, (req, res) => {
     id = req.params.id;
 

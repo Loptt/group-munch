@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom/cjs/react-router-dom";
+import {SERVER_URL} from '../config'
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
@@ -30,7 +31,7 @@ export default function Login(props) {
         event.preventDefault();
         console.log(email, password);
 
-        let url = "http://localhost:8080/api/login";
+        let url = `${SERVER_URL}/api/login`;
         let settings = {
             method: "POST",
             headers: {

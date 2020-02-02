@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './css/ViewGroup.css'
 import Navigation from './Navigation';
 import EditPlace from './EditPlace'
+import Voting from './Voting';
 import {SERVER_URL} from '../config'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
@@ -430,7 +431,7 @@ export default function ViewGroup(props) {
                             return (
                                 <>
                                     <Card className="group-card-view">
-                                        <Card.Img className='group-image' variant="top" src={place.image} />
+                                        <Card.Img variant="top" src={place.image} />
                                         <Card.Body>
                                             <Card.Title>{place.name}</Card.Title>
                                             <Card.Text>
@@ -459,6 +460,7 @@ export default function ViewGroup(props) {
                         {showAddPlace ? cancelPlaceFrom() : null}
                     </Col>
                     <Col lg='6'>
+                        <Voting/>
                         <h2>Members</h2>
                         <ListGroup className='members'>
                             {members.map((member, i) => {
@@ -472,6 +474,7 @@ export default function ViewGroup(props) {
                                 )
                             })}
                         </ListGroup>
+                        {isManager() ? <p className='remove-hint mt-2'>Double click to remove</p>: null}
                         {showAddMember ? memberForm() : null}
                         <Button variant='flat' bg='flat' className='add-btn flat-btn' onClick={handleClickAddMember}>Add member</Button>
                         {showAddMember ? cancelMemberFrom() : null}

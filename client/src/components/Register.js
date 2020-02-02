@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import Container from "react-bootstrap/Container";
 import Modal from 'react-bootstrap/Modal'
+import {SERVER_URL} from '../config'
 
 export default function Register(props) {
     const [firstName, setFirstName] = useState("");
@@ -56,7 +57,7 @@ export default function Register(props) {
             return;
         }
 
-        let url = "http://localhost:8080/api/users/create";
+        let url = `${SERVER_URL}/api/users/create`;
         let settings = {
             method: "POST",
             headers: {

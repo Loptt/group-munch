@@ -20,8 +20,8 @@
 }
 
 .thumbnail {
-    width: 200px;
-    height: 200px;
+    width: 18rem;
+    height: 50%;
     object-fit: cover;
 }
 

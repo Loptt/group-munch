@@ -41,3 +41,7 @@
     text-align: center;
 }
 
+.remove-hint {
+    font-size: 13px;
+    color: #999999;
+}

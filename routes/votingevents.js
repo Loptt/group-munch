@@ -141,3 +141,5 @@ router.get('/:id', jsonParser, (req, res) => {
             res.status(error.code).send();
         });
 });
+
+module.exports = router;

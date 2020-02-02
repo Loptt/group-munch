@@ -14,7 +14,7 @@ let voteCollection = mongoose.Schema({
 
 let votingEventCollection = mongoose.Schema({
     dateTimeStart: Date,
-    datetimeEnd: Date,
+    dateTimeEnd: Date,
     vote: [voteCollection],
     group: {
         type: mongoose.Schema.Types.ObjectId,

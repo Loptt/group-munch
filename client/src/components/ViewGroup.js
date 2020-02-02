@@ -460,7 +460,7 @@ export default function ViewGroup(props) {
                         {showAddPlace ? cancelPlaceFrom() : null}
                     </Col>
                     <Col lg='6'>
-                        <Voting/>
+                        <Voting group={group}/>
                         <h2>Members</h2>
                         <ListGroup className='members'>
                             {members.map((member, i) => {

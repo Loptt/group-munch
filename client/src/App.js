@@ -6,6 +6,7 @@ import Login from './components/Login';
 import Register from './components/Register'
 import NewGroup from "./components/NewGroup";
 import ViewGroup from "./components/ViewGroup";
+import EditGroup from "./components/EditGroup";
 import {SERVER_URL} from './config';
 
 export default class App extends Component {
@@ -154,6 +155,19 @@ export default class App extends Component {
                         path={"/view/group"}
                         render={props => (
                         <ViewGroup
+                            {...props}
+                            group={this.state.selectedGroup}
+                            loggedIn={this.state.loggedIn}
+                            user={this.state.user}
+                            logout={this.logout}
+                        />
+                        )}
+                    />
+                    <Route
+                        exact
+                        path={"/edit/group"}
+                        render={props => (
+                        <EditGroup
                             {...props}
                             group={this.state.selectedGroup}
                             loggedIn={this.state.loggedIn}

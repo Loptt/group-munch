@@ -24,9 +24,17 @@
     text-decoration: underline;    
 }
 
-.group-card {
+.group-card-view {
     margin: auto;
     margin-top: 25px;
+    width: 18em;
+}
+
+@media (min-width: 992px) {
+    .group-card-view {
+        width: 400px;
+    }
+
 }
 
 .group-container {

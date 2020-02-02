@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {SERVER_URL} from '../config'
 import './css/Home.css';
+import Navigation from "./Navigation";
 import Container from "react-bootstrap/Container";
 import Card from 'react-bootstrap/Card'
-import Navigation from "./Navigation";
 import Button from 'react-bootstrap/Button';
 import {Plus} from 'react-bootstrap-icons';
 
@@ -75,7 +75,7 @@ export default function Home (props) {
                     {groups.map((group, i) => {
                         return (
                             <Card className="group-card" style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={group.image} />
+                                <Card.Img className='thumbnail' variant="top" src={group.image} />
                                 <Card.Body>
                                     <Card.Title>{group.name}</Card.Title>
                                     <Card.Text>

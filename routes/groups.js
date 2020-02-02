@@ -251,37 +251,37 @@ router.delete('/:id_group/delete-member/:id_member', jsonParser, (req, res) => {
         return res.status(406).send();
     }
 
-    GroupController.getById(id)
+    GroupController.getById(groupId)
         .then(group => {
             if (group == null) {
                 throw new ServerError(404);
             }
 
             let member = group.members.find((user) => {
-                if (user === memberId) {
+                console.log('Comparing..', user, memberId);
+                if (user == memberId) {
+                    console.log('FOUND')
                     return user;
                 }
             });
 
             if (member == undefined || member == null) {
-                res.statusMessage = "That member doesn't exist in the given group";
-
-                return res.status(404).send();
+                throw new ServerError(404, "That member doesn't exist in the given group")
             }
 
             let index = group.members.findIndex(user => user === memberId);
             group.members.splice(index, 1);
             let newGroup = group;
 
-            return GroupController.delete(groupId, newGroup);
+            return GroupController.update(groupId, newGroup);
         })
         .then(ng => {
-            return res.status(202).json(ng);
+            return res.status(202).json({});
         })
         .catch(error => {
             console.log(error);
             if (error.code === 404) {
-                res.statusMessage = "Group not found with given id";
+                res.statusMessage = error.message;
                 return res.status(404).send();
             } else {
                 res.statusMessage = "Database error";

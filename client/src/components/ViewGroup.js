@@ -12,6 +12,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form'
+import {Pencil} from 'react-bootstrap-icons';
 
 export default function ViewGroup(props) {
     
@@ -21,6 +22,8 @@ export default function ViewGroup(props) {
     const [memberEmail, setMemberEmail] = useState('');
     const [showAddMember, setShowAddMember] = useState(false);
     const [showAddPlace, setShowAddPlace] = useState(false);
+    const [showDeleteMember, setShowDeleteMember] = useState(false);
+    const [manager, setManager] = useState('');
 
     const [name, setName] = useState("initialState");
     const [desc, setDesc] = useState('initialState');
@@ -28,12 +31,19 @@ export default function ViewGroup(props) {
     const [dist, setDist] = useState(1);
 
     useEffect(() => {
+        checkLogin();
         if (group._id == undefined) {
             props.history.push('/');
         }
         fetchMembers();
         fetchPlaces();
     }, []);
+
+    const checkLogin = () => {
+        if (!props.loggedIn) {
+            props.history.push("/login");
+        }
+    }
 
     const getDistance = (num) => {
         switch(num) {
@@ -57,6 +67,14 @@ export default function ViewGroup(props) {
         }
     }
 
+    const isManager = () => {
+        return group.manager === props.user.id;
+    }
+
+    const isManagerId = (id) => {
+        return group.manager === id;
+    }
+
     const fetchMembers = () => {
         let url = `${SERVER_URL}/api/groups/${group._id}/members`;
         let settings = {
@@ -73,6 +91,8 @@ export default function ViewGroup(props) {
             })
             .then(responseJSON => {
                 setMembers(responseJSON);
+                let i = responseJSON.findIndex(m => m._id === group.manager);
+                setManager(responseJSON[i].firstName + " " + responseJSON[i].lastName);
             })
             .catch(error => {
                 console.log(error);
@@ -174,6 +194,33 @@ export default function ViewGroup(props) {
             })
     }
 
+    const deleteMember = id => {
+        let url = `${SERVER_URL}/api/groups/${group._id}/delete-member/${id}`;
+        let settings = {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }
+
+        fetch(url, settings)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error(response);
+            })
+            .then(responseJSON => {
+                console.log('Deleted..');
+                fetchMembers();
+            })
+            .catch(error => {
+                console.log("ERROR...")
+                console.log(error.statusText);
+            })
+    }
+
     const handleLogout = () => {
         props.logout();
     }
@@ -210,6 +257,10 @@ export default function ViewGroup(props) {
         setShowAddPlace(false);
     }
 
+    const handleGroupEditClick = event => {
+        props.history.push('/edit/group');
+    }
+
     const onNameChange = event => {
         setName(event.target.value);
     }
@@ -224,6 +275,30 @@ export default function ViewGroup(props) {
 
     const onPriceChange = event => {
         setPrice(event.target.value);
+    }
+
+    const onClickDeleteMember = (event) => {
+        if (!isManager()) {
+            return;
+        }
+
+        let memberId = event.target.childNodes[3].value;
+
+        if (isManagerId(memberId)) {
+            return;
+        }
+
+        if (event.target.childNodes[3].style.display === 'none') {
+            event.target.childNodes[3].style.display = 'inline';
+        } else {
+            event.target.childNodes[3].style.display = 'none';
+        }
+    }
+
+    const onClickBtnDeleteMember = (event) => {
+        event.stopPropagation();
+        let id = event.target.value;
+        deleteMember(id);
     }
 
     const memberForm = () => {
@@ -278,19 +353,26 @@ export default function ViewGroup(props) {
             <Container>
                 <Jumbotron className='header'>
                     <h1 className="title">{group.name}</h1>
-                    <p>{group.description}</p>
+                    <h4>{group.description}</h4>
+                    <p className="text-muted">By {manager}</p>
                 </Jumbotron>
                 <Row>
                     <Col lg='6'>
                         <h2>Places</h2>
                         {places.map((place, i) => {
                             return (
-                                <Card className="group-card" style={{ width: '18rem' }}>
-                                    <Card.Img variant="top" src={place.image} />
+                                <Card className="group-card-view">
+                                    <Card.Img className='group-image' variant="top" src={place.image} />
                                     <Card.Body>
                                         <Card.Title>{place.name}</Card.Title>
                                         <Card.Text>
                                             {place.description}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Distance: {getDistance(place.distanceCategory)}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            Price: {getPrice(place.priceCategory)}
                                         </Card.Text>
                                         <Button value={place._id} variant="flat">Edit</Button>
                                     </Card.Body>
@@ -306,7 +388,12 @@ export default function ViewGroup(props) {
                         <ListGroup className='members'>
                             {members.map((member, i) => {
                                 return (
-                                    <ListGroup.Item variant="light">{member.firstName} {member.lastName}</ListGroup.Item>
+                                    <ListGroup.Item action onClick={onClickDeleteMember}>
+                                        {member.firstName} {member.lastName}
+                                        <Button className='delete-btn' variant='outline-danger' value={member._id} size='sm' onClick={onClickBtnDeleteMember}>
+                                            Remove
+                                        </Button>
+                                    </ListGroup.Item>
                                 )
                             })}
                         </ListGroup>
@@ -316,10 +403,17 @@ export default function ViewGroup(props) {
                     </Col>
                 </Row>
             </Container>
+            <div className="fixed-bottom add-button">
+                <span class="dot" onClick={handleGroupEditClick}><Pencil/></span>
+            </div>
             <style type="text/css">
                 {`
                 .btn-flat {
                     background-color: #e4f9f5;
+                }
+                .delete-btn {
+                    display: none;
+                    margin-left: 25px;
                 }
                 `}
             </style>

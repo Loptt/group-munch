@@ -6,13 +6,16 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 
-export default function NewGroup (props) {
+export default function EditGroup (props) {
 
-    const [name, setName] = useState("");
-    const [desc, setDesc] = useState("");
+    const [name, setName] = useState(props.group.name);
+    const [desc, setDesc] = useState(props.group.description);
+    const [group, setGroup] = useState(props.group);
 
     useEffect(() => {
         checkLogin();
+        document.getElementById('editName').value = group.name;
+        document.getElementById('editDesc').value = group.description;
     }, []);
 
     const checkLogin = () => {
@@ -28,16 +31,16 @@ export default function NewGroup (props) {
     const handleSubmit = event => {
         event.preventDefault();
 
-        let url = `${SERVER_URL}/api/groups/create`;
+        let url = `${SERVER_URL}/api/groups/update/${group._id}`;
         let settings = {
-            method: "POST",
+            method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 name: name,
                 description: desc,
-                manager_id: props.user.id
+                manager_id: group.manager
             })
         }
 
@@ -51,11 +54,17 @@ export default function NewGroup (props) {
             })
             .then(responseJSON => {
                 console.log(responseJSON);
-                props.history.push('/');
+                props.group.name = name;
+                props.group.description = desc;
+                props.history.push('/view/group');
             })
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    const handleCancel = event => {
+        props.history.push('/view/group');
     }
 
     const onNameChange = event => {
@@ -66,26 +75,22 @@ export default function NewGroup (props) {
         setDesc(event.target.value);
     }
 
-    const handleCancel = event => {
-        props.history.push('/view/group');
-    }
-
     return (
         <>
             <Navigation handleLogout={handleLogout}/>
             <Container>
                 <h1 className="title">
-                    Create new Group
+                    Edit Group
                 </h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group>
-                        <Form.Control type="text" placeholder="Name" onChange={onNameChange} required/>
+                        <Form.Control id='editName' type="text" placeholder="Name" onChange={onNameChange} required/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control as="textarea" placeholder="Description" rows="3" onChange={onDescChange} required />
+                        <Form.Control id='editDesc' as="textarea" placeholder="Description" rows="3" onChange={onDescChange} required />
                     </Form.Group>
                     <Button variant="flat" bg="flat" type="submit">
-                        Create
+                        Save
                     </Button>
                 </Form>
                 <p className="cancel-group-edit cancel-member" onClick={handleCancel}>Cancel</p>

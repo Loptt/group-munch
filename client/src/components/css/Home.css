@@ -9,10 +9,6 @@
     pointer-events: auto;
 }
 
-.title {
-    margin: 10px;
-}
-
 .add-button {
     display: flex;
     flex-direction: row-reverse;
@@ -22,23 +18,38 @@
     pointer-events: none;
 }
 
+.thumbnail {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
 .group-card {
     margin: auto;
-    margin-top: 25px;
+    margin-top: 50px;
+    height: 400px;
+}
+
+@media (max-width: 992px) {
 }
 
 .group-container {
     text-align: center;
 }
 
+.group-image {
+    width: 100px;
+}
+
 @media (min-width: 992px) {
     .group-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
+        display: block;
+        float: left;
     }
 
     .group-card {
         margin: 30px;
+        display: block;
+        float: left;
     }
 }

@@ -77,7 +77,7 @@ export default function EditGroup (props) {
 
     return (
         <>
-            <Navigation handleLogout={handleLogout}/>
+            <Navigation user={props.user} handleLogout={handleLogout}/>
             <Container>
                 <h1 className="title">
                     Edit Group

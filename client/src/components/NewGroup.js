@@ -72,7 +72,7 @@ export default function NewGroup (props) {
 
     return (
         <>
-            <Navigation handleLogout={handleLogout}/>
+            <Navigation user={props.user} handleLogout={handleLogout}/>
             <Container>
                 <h1 className="title">
                     Create new Group

@@ -68,7 +68,7 @@ export default function Home (props) {
 
     return (
         <>
-            <Navigation handleLogout={handleLogout}/>
+            <Navigation user={props.user} handleLogout={handleLogout}/>
             <Container>
                 <h1 className="title">Groups</h1>
                 <div className="group-container">

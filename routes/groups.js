@@ -8,6 +8,7 @@ let images = require('../images');
 
 let {GroupController} = require('../models/group');
 let {UserController} = require('../models/user');
+let {PlaceController} = require('../models/place');
 let ServerError = require('../error');
 
 router.get('/:id/members', jsonParser, (req, res) => {
@@ -236,6 +237,39 @@ router.put('/:id_group/add_member_email', jsonParser, (req, res) => {
             return res.status(error.code).send();
         });
 });
+
+router.delete('/delete/:id', jsonParser, (req, res) => {
+    let id = req.params.id;
+
+    if (id == undefined) {
+        res.statusMessage = "No group id given to delete";
+        return res.status(406).send();
+    }
+
+    GroupController.getById(id)
+        .then(group => {
+            if (group == null) {
+                throw new ServerError(404, "Group with ID given doesn't exist");
+            }
+
+            return PlaceController.deleteByGroupId(id);
+        })
+        .then(places => {
+            return GroupController.delete(id);
+        })
+        .then(group => {
+            return res.status(204).send(group);
+        })
+        .catch(error => {
+            if (error.code === 404) {
+                res.statusMessage = error.message;
+                return res.status(404).send();
+            }
+
+            res.statusMessage = "Database error";
+            return res.status(500).send();
+        })
+})
 
 router.delete('/:id_group/delete-member/:id_member', jsonParser, (req, res) => {
     let groupId = req.params.id_group;

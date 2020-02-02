@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './css/ViewGroup.css'
 import Navigation from './Navigation';
+import EditPlace from './EditPlace'
 import {SERVER_URL} from '../config'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
@@ -12,6 +13,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form'
+import Modal from 'react-bootstrap/Modal'
 import {Pencil} from 'react-bootstrap-icons';
 
 export default function ViewGroup(props) {
@@ -19,16 +21,20 @@ export default function ViewGroup(props) {
     const [group, setGroup] = useState(props.group);
     const [members, setMembers] = useState([]);
     const [places, setPlaces] = useState([]);
+    const [placesBool, setPlacesBool] = useState([]);
     const [memberEmail, setMemberEmail] = useState('');
     const [showAddMember, setShowAddMember] = useState(false);
     const [showAddPlace, setShowAddPlace] = useState(false);
     const [showDeleteMember, setShowDeleteMember] = useState(false);
+    const [showDeleteWarning, setShowDeleteWarning] = useState(false);
     const [manager, setManager] = useState('');
 
     const [name, setName] = useState("initialState");
     const [desc, setDesc] = useState('initialState');
     const [price, setPrice] = useState(1);
     const [dist, setDist] = useState(1);
+
+    const [useless, setUseless] = useState(0);
 
     useEffect(() => {
         checkLogin();
@@ -38,6 +44,10 @@ export default function ViewGroup(props) {
         fetchMembers();
         fetchPlaces();
     }, []);
+
+    useEffect(() => {
+        console.log("Places change!")
+    }, [places]);
 
     const checkLogin = () => {
         if (!props.loggedIn) {
@@ -114,6 +124,15 @@ export default function ViewGroup(props) {
                 throw new Error(response);
             })
             .then(responseJSON => {
+                console.log(responseJSON);
+                let newPlacesBool = []
+                responseJSON.forEach(p => {
+                    console.log('Pussshing')
+                    newPlacesBool.push(false);
+                });
+
+                setPlacesBool(newPlacesBool);
+
                 setPlaces(responseJSON);
             })
             .catch(error => {
@@ -238,6 +257,7 @@ export default function ViewGroup(props) {
     }
 
     const handleClickAddPlace = event => {
+        console.log(placesBool);
         if (showAddPlace) {
             postNewPlace();
         } else {
@@ -259,6 +279,30 @@ export default function ViewGroup(props) {
 
     const handleGroupEditClick = event => {
         props.history.push('/edit/group');
+    }
+
+    const HandleDeleteCurrentGroup = event => {
+        let url = `${SERVER_URL}/api/groups/delete/${group._id}`;
+        let settings = {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }
+
+        fetch(url, settings)
+            .then(response => {
+                if (response.ok) {
+                    console.log('Deleted..');
+                    props.history.push('/');
+                }
+
+                throw new Error(response);
+            })
+            .catch(error => {
+                console.log(error);
+                console.log(error.statusText);
+            })
     }
 
     const onNameChange = event => {
@@ -299,6 +343,15 @@ export default function ViewGroup(props) {
         event.stopPropagation();
         let id = event.target.value;
         deleteMember(id);
+    }
+
+    const toggleEditPlaceForm = (i) => {
+        let newPlaces = places;
+        newPlaces[i].showForm = !newPlaces[i].showForm;
+        setPlaces(newPlaces);
+
+        // This thing is here because react doesn't know how to handle rerenders properly
+        setUseless(useless+1);
     }
 
     const memberForm = () => {
@@ -349,7 +402,21 @@ export default function ViewGroup(props) {
 
     return (
         <>
-            <Navigation handleLogout={handleLogout}/>
+            <Navigation user={props.user} handleLogout={handleLogout}/>
+            <Modal show={showDeleteWarning} onHide={1}>
+                <Modal.Header closeButton>
+                <Modal.Title>Delete group?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>All saved places and voting events will be lost</Modal.Body>
+                <Modal.Footer>
+                <Button variant="danger" onClick={HandleDeleteCurrentGroup}>
+                    Delete
+                </Button>
+                <Button variant="default" onClick={event => setShowDeleteWarning(false)}>
+                    Cancel
+                </Button>
+                </Modal.Footer>
+            </Modal>
             <Container>
                 <Jumbotron className='header'>
                     <h1 className="title">{group.name}</h1>
@@ -361,26 +428,34 @@ export default function ViewGroup(props) {
                         <h2>Places</h2>
                         {places.map((place, i) => {
                             return (
-                                <Card className="group-card-view">
-                                    <Card.Img className='group-image' variant="top" src={place.image} />
-                                    <Card.Body>
-                                        <Card.Title>{place.name}</Card.Title>
-                                        <Card.Text>
-                                            {place.description}
-                                        </Card.Text>
-                                        <Card.Text>
-                                            Distance: {getDistance(place.distanceCategory)}
-                                        </Card.Text>
-                                        <Card.Text>
-                                            Price: {getPrice(place.priceCategory)}
-                                        </Card.Text>
-                                        <Button value={place._id} variant="flat">Edit</Button>
-                                    </Card.Body>
-                                </Card>
+                                <>
+                                    <Card className="group-card-view">
+                                        <Card.Img className='group-image' variant="top" src={place.image} />
+                                        <Card.Body>
+                                            <Card.Title>{place.name}</Card.Title>
+                                            <Card.Text>
+                                                {place.description}
+                                            </Card.Text>
+                                            <Card.Text>
+                                                Distance: {getDistance(place.distanceCategory)}
+                                            </Card.Text>
+                                            <Card.Text>
+                                                Price: {getPrice(place.priceCategory)}
+                                            </Card.Text>
+                                            <Button value={place._id} onClick={(event) => toggleEditPlaceForm(i)} className='flat-btn' variant="flat">
+                                                {place.showForm ? "Hide" : "Edit"}
+                                            </Button>
+                                        </Card.Body>
+                                    </Card>
+                                    {place.showForm ? 
+                                        <EditPlace cancelEditEvent={() => toggleEditPlaceForm(i)} updatePlace={fetchPlaces} className='edit-place-form' place={place}/>
+                                        : null
+                                    }
+                                </>
                             )
                         })}
                         {showAddPlace ? placeForm() : null}
-                        <Button variant='flat' bg='flat' className='add-btn' onClick={handleClickAddPlace}>Add place</Button>
+                        <Button variant='flat' bg='flat' className='add-btn flat-btn' onClick={handleClickAddPlace}>Add place</Button>
                         {showAddPlace ? cancelPlaceFrom() : null}
                     </Col>
                     <Col lg='6'>
@@ -398,17 +473,21 @@ export default function ViewGroup(props) {
                             })}
                         </ListGroup>
                         {showAddMember ? memberForm() : null}
-                        <Button variant='flat' bg='flat' className='add-btn' onClick={handleClickAddMember}>Add member</Button>
+                        <Button variant='flat' bg='flat' className='add-btn flat-btn' onClick={handleClickAddMember}>Add member</Button>
                         {showAddMember ? cancelMemberFrom() : null}
                     </Col>
                 </Row>
+                {isManager() ? <Button variant='outline-danger' className='delete-group mt-2 mb-4' onClick={event => setShowDeleteWarning(true)}>Delete Group</Button> : null}
             </Container>
-            <div className="fixed-bottom add-button">
-                <span class="dot" onClick={handleGroupEditClick}><Pencil/></span>
-            </div>
+            {isManager() ?
+                <div className="fixed-bottom add-button">
+                    <span class="dot" onClick={handleGroupEditClick}><Pencil/></span>
+                </div>
+                : null
+            }
             <style type="text/css">
                 {`
-                .btn-flat {
+                .flat-btn {
                     background-color: #e4f9f5;
                 }
                 .delete-btn {

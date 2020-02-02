@@ -27,14 +27,16 @@ router.post('/login', jsonParser, (req, res) => {
             }
 
             let data = {
-                id: user._id
+                id: user._id,
+                firstName: user.firstName,
+                lastName: user.lastName
             }
 
             let token = jwt.sign(data, 'secret', {
                 expiresIn: 60 * 60
             });
 
-            return res.status(200).json({token: token, id: user._id});
+            return res.status(200).json({token: token, id: user._id, firstName: user.firstName, lastName: user.lastName});
         })
         .catch(error => {
             if (error.code === 404) {
@@ -57,7 +59,7 @@ router.get('/validate/:token', (req, res) => {
         }
 
         console.log(user);
-        return res.status(200).json({message: "success", id: user.id});
+        return res.status(200).json({message: "success", id: user.id, firstName: user.firstName, lastName: user.lastName});
     });
 });
 

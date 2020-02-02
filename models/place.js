@@ -70,6 +70,15 @@ let PlaceController = {
             .catch(error => {
                 throw Error(error);
             });
+    },
+    deleteByGroupId: function(id) {
+        return Place.remove({group: id})
+            .then(places => {
+                return places;
+            })
+            .catch(error => {
+                throw Error(error);
+            });
     }
 }
 

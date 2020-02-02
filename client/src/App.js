@@ -29,14 +29,20 @@ export default class App extends Component {
         localStorage.setItem('gm_token', null);
     }
 
-    handleSuccessfulAuth = (response) => {
+    setSuccessLoginState = (response) => {
         this.setState({
             loggedIn: true,
             user: {
                 id: response.id,
-                token: response.token
+                token: response.token,
+                fName: response.firstName,
+                lName: response.lastName,
             }
-        });
+        })
+    }
+
+    handleSuccessfulAuth = (response) => {
+        this.setSuccessLoginState(response);
 
         localStorage.setItem('gm_token', response.token);
     }
@@ -71,12 +77,8 @@ export default class App extends Component {
             })
             .then(responseJSON => {
                 if (responseJSON.message === "success") {
-                    this.setState({
-                        loggedIn: true,
-                        user: {
-                            id: responseJSON.id
-                        }
-                    })
+                    this.setSuccessLoginState(responseJSON);
+                    console.log(responseJSON);
                     console.log('Logged in from localstorage');
                 } else if (responseJSON.message === "error"){
                     this.setState({

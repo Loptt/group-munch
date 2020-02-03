@@ -307,6 +307,10 @@ router.delete('/:id_group/delete-member/:id_member', jsonParser, (req, res) => {
             group.members.splice(index, 1);
             let newGroup = group;
 
+            console.log('group id ', group._id);
+
+            console.log('new members ', newGroup.members)
+
             return GroupController.update(groupId, newGroup);
         })
         .then(ng => {
@@ -325,7 +329,9 @@ router.delete('/:id_group/delete-member/:id_member', jsonParser, (req, res) => {
 });
 
 router.get('/by-member/:id', jsonParser, (req, res) => {
-    id = req.params.id;
+    let id = req.params.id;
+
+    let term = req.query.term;
 
     if (id == undefined) {
         res.statusMessage = "No ID given to show groups of user";
@@ -338,7 +344,21 @@ router.get('/by-member/:id', jsonParser, (req, res) => {
                 throw new ServerError(404);
             }
 
-            return res.status(200).json(groupsOfUser);
+            if (term == null || term == undefined || term == '') {
+                return res.status(200).json(groupsOfUser);
+            }
+
+            term = term.toLowerCase();
+
+            let matchedGroups = [];
+
+            groupsOfUser.forEach(group => {
+                if (group.name.toLowerCase().includes(term)) {
+                    matchedGroups.push(group);
+                }
+            });
+
+            return res.status(200).json(matchedGroups);
         })
         .catch(error => {
             console.log(error);

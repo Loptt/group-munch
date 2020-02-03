@@ -64,24 +64,26 @@ router.get('/groups/:group_id/recent', jsonParser, (req, res) => {
             }
             votingEvent.sort((a, b) => a.dateTimeEnd - b.dateTimeEnd);
 
-            console.log('Filtering this wea')
-
             let event;
             let currentDate = new Date();
             let filteredEvents = votingEvent.filter(ve => ve.dateTimeEnd > currentDate);
 
+            console.log('FILTER ', filteredEvents);
+
             if (filteredEvents.length === 0) {
                 console.log('All old');
-                return res.status(200).json(votingEvent[0]);
+                return res.status(200).json(votingEvent[votingEvent.length-1]);
             } else {
                 filteredEvents.forEach((e) => {
-                    if (!e.finished) {
+                    /*if (!e.finished) {
                         return res.status(200).json(e);
-                    }
+                    }*/
+
+                    return res.status(200).json(votingEvent[0]);
                 })
             }
 
-            return res.status(200).json(votingEvent[votingEvent.length-1]);
+            return res.status(200).json(votingEvent[0]);
         })
         .catch(error => {
             console.log(error);

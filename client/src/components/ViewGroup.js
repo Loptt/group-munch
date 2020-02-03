@@ -3,6 +3,7 @@ import './css/ViewGroup.css'
 import Navigation from './Navigation';
 import EditPlace from './EditPlace'
 import Voting from './Voting';
+import CustomAlert from './CustomAlert'
 import {SERVER_URL} from '../config'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row';
@@ -28,6 +29,7 @@ export default function ViewGroup(props) {
     const [showAddPlace, setShowAddPlace] = useState(false);
     const [showDeleteMember, setShowDeleteMember] = useState(false);
     const [showDeleteWarning, setShowDeleteWarning] = useState(false);
+    const [showLeaveWarning, setShowLeaveWarning] = useState(false);
     const [manager, setManager] = useState('');
 
     const [name, setName] = useState("initialState");
@@ -36,6 +38,10 @@ export default function ViewGroup(props) {
     const [dist, setDist] = useState(1);
 
     const [useless, setUseless] = useState(0);
+
+    const [alertVariant, setAlertVariant] = useState('danger');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         checkLogin();
@@ -49,6 +55,16 @@ export default function ViewGroup(props) {
     useEffect(() => {
         console.log("Places change!");
     }, [places]);
+
+    const onCloseAlert = () => {
+        setShowAlert(false);
+    }
+
+    const handleVoteAlert = (variant, message) => {
+        setAlertMessage(message);
+        setAlertVariant(variant);
+        setShowAlert(true);
+    }
 
     const checkLogin = () => {
         if (!props.loggedIn) {
@@ -106,6 +122,9 @@ export default function ViewGroup(props) {
                 setManager(responseJSON[i].firstName + " " + responseJSON[i].lastName);
             })
             .catch(error => {
+                setAlertVariant('danger');
+                setAlertMessage('Error getting group members');
+                setShowAlert(true);
                 console.log(error);
             })
     }
@@ -133,10 +152,12 @@ export default function ViewGroup(props) {
                 });
 
                 setPlacesBool(newPlacesBool);
-
                 setPlaces(responseJSON);
             })
             .catch(error => {
+                setAlertVariant('danger');
+                setAlertMessage('Error getting group places');
+                setShowAlert(true);
                 console.log(error);
             })
     }
@@ -164,9 +185,14 @@ export default function ViewGroup(props) {
             .then(responseJSON => {
                 setShowAddMember(false);
                 fetchMembers();
+                setAlertVariant('success');
+                setAlertMessage('New member added successfully');
+                setShowAlert(true);
             })
             .catch(error => {
-                console.log("ERROR...")
+                setAlertVariant('danger');
+                setAlertMessage('Error adding new member');
+                setShowAlert(true);
                 console.log(error.statusText);
             })
     }
@@ -207,9 +233,14 @@ export default function ViewGroup(props) {
             .then(responseJSON => {
                 setShowAddPlace(false);
                 fetchPlaces();
+                setAlertVariant('success');
+                setAlertMessage('New place added successfully');
+                setShowAlert(true);
             })
             .catch(error => {
-                console.log("ERROR...")
+                setAlertVariant('danger');
+                setAlertMessage('Error adding new place');
+                setShowAlert(true);
                 console.log(error.statusText);
             })
     }
@@ -232,12 +263,14 @@ export default function ViewGroup(props) {
                 throw new Error(response);
             })
             .then(responseJSON => {
-                console.log('Deleted..');
+                setAlertVariant('success');
+                setAlertMessage('Member deleted form group');
                 fetchMembers();
             })
             .catch(error => {
-                console.log("ERROR...")
-                console.log(error.statusText);
+                setAlertVariant('danger');
+                setAlertMessage('Error deleting member from group');
+                setShowAlert(true);
             })
     }
 
@@ -301,8 +334,36 @@ export default function ViewGroup(props) {
                 throw new Error(response);
             })
             .catch(error => {
-                console.log(error);
-                console.log(error.statusText);
+                setAlertVariant('danger');
+                setAlertMessage('Error deleting current group');
+                setShowAlert(true);
+            })
+    }
+
+    const HandleLeaveCurrentGroup = event => {
+        let url = `${SERVER_URL}/api/groups/${group._id}/delete-member/${props.user.id}`;
+        let settings = {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        }
+
+        fetch(url, settings)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+
+                throw new Error(response);
+            })
+            .then(responseJSON => {
+                props.history.push('/');
+            })
+            .catch(error => {
+                setAlertVariant('danger');
+                setAlertMessage('Error leaving group');
+                setShowAlert(true);
             })
     }
 
@@ -402,10 +463,10 @@ export default function ViewGroup(props) {
     }
 
     return (
-        <>
+        <div className='app-container-x'>
             <Navigation user={props.user} handleLogout={handleLogout}/>
             <Modal show={showDeleteWarning} onHide={1}>
-                <Modal.Header closeButton>
+                <Modal.Header>
                 <Modal.Title>Delete group?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>All saved places and voting events will be lost</Modal.Body>
@@ -418,15 +479,30 @@ export default function ViewGroup(props) {
                 </Button>
                 </Modal.Footer>
             </Modal>
+            <Modal show={showLeaveWarning} onHide={1}>
+                <Modal.Header>
+                <Modal.Title>Leave group?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>You won't be able to join back unless invited</Modal.Body>
+                <Modal.Footer>
+                <Button variant="danger" onClick={HandleLeaveCurrentGroup}>
+                    Leave
+                </Button>
+                <Button variant="default" onClick={event => setShowLeaveWarning(false)}>
+                    Cancel
+                </Button>
+                </Modal.Footer>
+            </Modal>
             <Container>
                 <Jumbotron className='header'>
                     <h1 className="title">{group.name}</h1>
                     <h4>{group.description}</h4>
                     <p className="text-muted">By {manager}</p>
                 </Jumbotron>
+                <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
                 <Row>
                     <Col lg='6'>
-                        <Voting group={group} places={places} user={props.user}/>
+                        <Voting group={group} places={places} user={props.user} voteAlert={handleVoteAlert}/>
                         <h2>Members</h2>
                         <ListGroup className='members'>
                             {members.map((member, i) => {
@@ -480,7 +556,8 @@ export default function ViewGroup(props) {
                         {showAddPlace ? cancelPlaceFrom() : null}
                     </Col>
                 </Row>
-                {isManager() ? <Button variant='outline-danger' className='delete-group mt-2 mb-4' onClick={event => setShowDeleteWarning(true)}>Delete Group</Button> : null}
+                {isManager() ? <Button variant='outline-danger' className='delete-group mt-2 mb-4' onClick={event => setShowDeleteWarning(true)}>Delete Group</Button> 
+                    : <Button variant='outline-danger' className='delete-group mt-2 mb-4' onClick={event => setShowLeaveWarning(true)}>Leave Group</Button>}
             </Container>
             {isManager() ?
                 <div className="fixed-bottom add-button">
@@ -499,6 +576,6 @@ export default function ViewGroup(props) {
                 }
                 `}
             </style>
-        </>
+        </div>
     )
 }

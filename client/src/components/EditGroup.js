@@ -5,12 +5,17 @@ import Navigation from './Navigation';
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
+import CustomAlert from './CustomAlert'
 
 export default function EditGroup (props) {
 
     const [name, setName] = useState(props.group.name);
     const [desc, setDesc] = useState(props.group.description);
     const [group, setGroup] = useState(props.group);
+
+    const [alertVariant, setAlertVariant] = useState('danger');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         checkLogin();
@@ -22,6 +27,10 @@ export default function EditGroup (props) {
         if (!props.loggedIn) {
             props.history.push("/login");
         }
+    }
+
+    const onCloseAlert = () => {
+        setShowAlert(false);
     }
 
     const handleLogout = () => {
@@ -76,9 +85,10 @@ export default function EditGroup (props) {
     }
 
     return (
-        <>
+        <div className='app-container-x'>
             <Navigation user={props.user} handleLogout={handleLogout}/>
             <Container>
+                <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
                 <h1 className="title">
                     Edit Group
                 </h1>
@@ -102,6 +112,6 @@ export default function EditGroup (props) {
                 }
                 `}
             </style>
-        </>
+        </div>
     )
 }

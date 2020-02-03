@@ -5,11 +5,16 @@ import Navigation from './Navigation';
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
+import CustomAlert from './CustomAlert'
 
 export default function NewGroup (props) {
 
     const [name, setName] = useState("");
     const [desc, setDesc] = useState("");
+
+    const [alertVariant, setAlertVariant] = useState('danger');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         checkLogin();
@@ -19,6 +24,10 @@ export default function NewGroup (props) {
         if (!props.loggedIn) {
             props.history.push("/login");
         }
+    }
+
+    const onCloseAlert = () => {
+        setShowAlert(false);
     }
 
     const handleLogout = () => {
@@ -71,9 +80,10 @@ export default function NewGroup (props) {
     }
 
     return (
-        <>
+        <div className='app-container-x'>
             <Navigation user={props.user} handleLogout={handleLogout}/>
             <Container>
+                <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
                 <h1 className="title">
                     Create new Group
                 </h1>
@@ -97,6 +107,6 @@ export default function NewGroup (props) {
                 }
                 `}
             </style>
-        </>
+        </div>
     )
 }

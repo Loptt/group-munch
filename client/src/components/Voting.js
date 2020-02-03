@@ -51,6 +51,7 @@ export default function Voting (props) {
                 setPlaces(responseJSON);
             })
             .catch(error => {
+                props.voteAlert('danger', 'Error getting places');
                 console.log(error);
             })
     }
@@ -74,6 +75,7 @@ export default function Voting (props) {
                 setWinner(responseJSON.name);
             })
             .catch(error => {
+                props.voteAlert('danger', 'Error getting winner');
                 console.log(error);
             })
     }
@@ -124,6 +126,7 @@ export default function Voting (props) {
                 handleFetchedVotingEvent(responseJSON);
             })
             .catch(error => {
+                props.voteAlert('danger', 'Error getting current voting event');
                 console.log(error);
                 setVotingActive(false);
             })
@@ -133,6 +136,12 @@ export default function Voting (props) {
         let updatedDate = date;
 
         updatedDate.setHours(time.substring(0,2), time.substring(3));
+
+        let currentDate = new Date();
+        if (updatedDate < currentDate) {
+            props.voteAlert('danger', 'Cannot create a voting event in the past!');
+            return;
+        }
 
         let url = `${SERVER_URL}/api/votingevents/create`;
         let settings = {
@@ -157,6 +166,7 @@ export default function Voting (props) {
             .then(responseJSON => {
                 fetchRecentVotingEvent();
                 setShowNewVoting(false);
+                props.voteAlert('success', 'Voting event created');
                 /*setAnyEvent(true);
                 setShowNewVoting(false);
                 setVotingActive(true);
@@ -164,6 +174,7 @@ export default function Voting (props) {
                 console.log(responseJSON);
             })
             .catch(error => {
+                props.voteAlert('danger', 'Error creating new voting event');
                 console.log(error);
             })
     }
@@ -197,24 +208,26 @@ export default function Voting (props) {
             })
             .then(responseJSON => {
                 console.log('Voted');
+                props.voteAlert('success', 'Vote casted successfully');
                 fetchRecentVotingEvent();
             })
             .catch(error => {
+                props.voteAlert('danger', 'Error casting vote');
                 console.log(error);
             })
     }
 
     const newVoteForm = () => {
         return (
-            <div className='mt-3'>
-                <div>
+            <div className='mt-3 rounded border'>
+                <div className='my-3'>
                     <Form.Label className='mr-3'>End date</Form.Label>
                     <DatePicker
                         onChange={(newDate) => setDate(newDate)}
                         value={date}
                     />
                 </div>
-                <div>
+                <div className='my-3'>
                     <Form.Label className='mr-3'>End Time</Form.Label>
                     <TimePicker
                         onChange={(newTime) => setTime(newTime)}
@@ -222,7 +235,7 @@ export default function Voting (props) {
                     />
                 </div>
                 <div>
-                    <Button className='mt-3' onClick={handleNewVotingEvent}>Create</Button>
+                    <Button className='highlight-btn my-3' variant='flat' bg='flat' onClick={handleNewVotingEvent}>Create</Button>
                 </div>
             </div>
         )
@@ -239,9 +252,9 @@ export default function Voting (props) {
                 }   
                 <Button variant='flat'
                 bg='flat' 
-                className='highlight-btn' 
+                className={(showNewVoting ? 'vote-btn' : 'highlight-btn') + ' mb-3'}
                 onClick={onNewVotingClick}>
-                        New Voting Event
+                        {showNewVoting ? "Hide" : "New Voting Event"}
                 </Button>
                 {showNewVoting ? newVoteForm() : null} 
             </div>

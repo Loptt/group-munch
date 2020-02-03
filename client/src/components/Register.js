@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import Container from "react-bootstrap/Container";
 import Modal from 'react-bootstrap/Modal'
 import {SERVER_URL} from '../config'
+import CustomAlert from './CustomAlert'
 
 export default function Register(props) {
     const [firstName, setFirstName] = useState("");
@@ -13,6 +14,10 @@ export default function Register(props) {
     const [password, setPassword] = useState("");
     const [passwordConf, setPasswordConf] = useState("");
     const [show, setShow] = useState(false);
+
+    const [alertVariant, setAlertVariant] = useState('danger');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
 
 
     useEffect(() => {
@@ -27,6 +32,10 @@ export default function Register(props) {
         if (props.loggedIn) {
             props.history.push("/");
         }
+    }
+
+    const onCloseAlert = () => {
+        setShowAlert(false);
     }
 
     const onFirstNameChange = event => {
@@ -84,6 +93,9 @@ export default function Register(props) {
 
             })
             .catch(error => {
+                setAlertVariant('danger');
+                setAlertMessage('Error creating new account');
+                setShowAlert(true);
                 console.log(error);
             })
     }
@@ -102,6 +114,7 @@ export default function Register(props) {
                 </Modal.Footer>
             </Modal>
             <Container>
+                <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
                 <h1>Register</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group>

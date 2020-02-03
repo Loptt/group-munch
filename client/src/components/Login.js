@@ -4,10 +4,15 @@ import Button from 'react-bootstrap/Button'
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import {SERVER_URL} from '../config'
+import CustomAlert from './CustomAlert'
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const [alertVariant, setAlertVariant] = useState('danger');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
        checkLogin();
@@ -17,6 +22,10 @@ export default function Login(props) {
         if (props.loggedIn) {
             props.history.push("/");
         }
+    }
+
+    const onCloseAlert = () => {
+        setShowAlert(false);
     }
 
     const onEmailChange = event => {
@@ -57,12 +66,16 @@ export default function Login(props) {
 
             })
             .catch(error => {
+                setAlertMessage('Login error');
+                setAlertVariant('danger');
+                setShowAlert(true);
                 console.log(error);
             })
     }
 
     return (
         <Container>
+            <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
             <h1>Login</h1>
             <Form onSubmit={handleSubmit}>
                 <Form.Group>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import './css/Navigation.css'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Alert from 'react-bootstrap/Alert'
 
 export default function Navigation (props) {
 

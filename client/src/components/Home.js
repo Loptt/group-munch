@@ -2,14 +2,24 @@ import React, { useState, useEffect } from "react";
 import {SERVER_URL} from '../config'
 import './css/Home.css';
 import Navigation from "./Navigation";
+import CustomAlert from './CustomAlert'
 import Container from "react-bootstrap/Container";
-import Card from 'react-bootstrap/Card'
+import Card from 'react-bootstrap/Card';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import {Plus} from 'react-bootstrap-icons';
 
 export default function Home (props) {
 
     const [groups, setGroups] = useState([]);
+
+    const [alertVariant, setAlertVariant] = useState('danger');
+    const [alertMessage, setAlertMessage] = useState('');
+    const [showAlert, setShowAlert] = useState(false);
+    const [term, setTerm] = useState('');
+
+    const [emptyGroups, setEmptyGroups] = useState(false);
 
     useEffect(() => {
         checkLogin();
@@ -25,8 +35,19 @@ export default function Home (props) {
         }
     }
 
-    const fetchGroups = (id) => {
-        let url = `${SERVER_URL}/api/groups/by-member/${id}`;
+    const onCloseAlert = () => {
+        setShowAlert(false);
+    }
+
+    const fetchGroups = (id, term = '') => {
+        let url;
+
+        if (term !== '') {
+            url = `${SERVER_URL}/api/groups/by-member/${id}?term=${term}`
+        } else {
+            url =`${SERVER_URL}/api/groups/by-member/${id}`;
+        }
+
         let settings = {
             method: 'GET'
         };
@@ -40,14 +61,30 @@ export default function Home (props) {
                 throw new Error();
             })
             .then(responseJSON => {
-                setGroups(responseJSON);
+                if (responseJSON.length < 1) {
+                    setEmptyGroups(true);
+                } else {
+                    setGroups(responseJSON);
+                    setEmptyGroups(false);
+                }
                 console.log(responseJSON);
             })
             .catch(error => {
+                setAlertVariant('danger');
+                setAlertMessage('Error getting your groups');
+                setShowAlert(true);
                 console.log(error);
             })
     }
 
+    const searchGroups = (event) => {
+        fetchGroups(props.user.id, term);
+    }
+
+    const searchGroupsForm = (event) => {
+        event.preventDefault();
+        searchGroups();
+    }
 
     const handleLogout = () => {
         props.logout();
@@ -66,12 +103,9 @@ export default function Home (props) {
         props.history.push('/new/group');
     }
 
-    return (
-        <>
-            <Navigation user={props.user} handleLogout={handleLogout}/>
-            <Container>
-                <h1 className="title">Groups</h1>
-                <div className="group-container">
+    const groupsList = () => {
+        return (
+            <div className="group-container">
                     {groups.map((group, i) => {
                         return (
                             <Card className="group-card" style={{ width: '18rem' }}>
@@ -87,6 +121,24 @@ export default function Home (props) {
                         )
                     })}
                 </div>
+        )
+    }
+
+    return (
+        <div className='app-container-x'>
+            <Navigation user={props.user} handleLogout={handleLogout}/>
+            <Container>
+                <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
+                <h1 className="title">Groups</h1>
+                <Form onSubmit={searchGroupsForm}>
+                    <InputGroup className="mt-4">
+                        <Form.Control type='text' placeholder="Group Name" onChange={e => setTerm(e.target.value)}/>
+                        <InputGroup.Append>
+                            <Button variant="flat" bg='flat'  onClick={searchGroups}>Search</Button>
+                        </InputGroup.Append>
+                    </InputGroup>
+                </Form>
+                {emptyGroups ? <h3 className='my-4'>No groups found</h3> : groupsList()}
             </Container>
             <div className="fixed-bottom add-button">
                 <span class="dot" onClick={handleAddClick}><Plus/></span>
@@ -98,7 +150,7 @@ export default function Home (props) {
                 }
                 `}
             </style>
-        </>
+        </div>
     );
 
 }

@@ -4,6 +4,7 @@ let jsonParser = bodyParser.json();
 let router = express.Router();
 let path = require('path');
 let jwt = require('jsonwebtoken');
+let bcrypt = require('bcrypt');
 
 let {UserController} = require('../models/user');
 let ServerError = require('../error');
@@ -22,10 +23,6 @@ router.post('/login', jsonParser, (req, res) => {
                 throw new ServerError(404, "User not found");
             }
 
-            if (user.password !== password) {
-                throw new ServerError(401, "Invalid password");
-            }
-
             let data = {
                 id: user._id,
                 firstName: user.firstName,
@@ -36,7 +33,14 @@ router.post('/login', jsonParser, (req, res) => {
                 expiresIn: 60 * 60
             });
 
-            return res.status(200).json({token: token, id: user._id, firstName: user.firstName, lastName: user.lastName});
+            bcrypt.compare(password, user.password, (err, result) => {
+                if (result) {
+                    return res.status(200).json({token: token, id: user._id, firstName: user.firstName, lastName: user.lastName});
+                }
+                else {
+                    res.send('Incorrect password');
+                }
+            });
         })
         .catch(error => {
             if (error.code === 404) {

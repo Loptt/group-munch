@@ -4,6 +4,8 @@ let jsonParser = bodyParser.json();
 let router = express.Router();
 let path = require('path');
 let jwt = require('jsonwebtoken');
+let bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 let {UserController} = require('../models/user');
 let ServerError = require('../error');
@@ -58,14 +60,14 @@ router.post('/create', jsonParser, (req, res) => {
                 throw new ServerError(409);
             }
 
-            let newUser = {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                password: password
-            }
-
-            return UserController.create(newUser)
+            bcrypt.hash(password, saltRounds, function(err, hash) {
+                return UserController.create({
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    password: hash
+                });
+            })
         })
         .then(nu => {
             return res.status(201).json(nu);

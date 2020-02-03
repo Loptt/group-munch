@@ -9,6 +9,8 @@ let bcrypt = require('bcrypt');
 let {UserController} = require('../models/user');
 let ServerError = require('../error');
 
+let foundUser;
+
 router.post('/login', jsonParser, (req, res) => {
     let {email, password} = req.body;
 
@@ -23,24 +25,34 @@ router.post('/login', jsonParser, (req, res) => {
                 throw new ServerError(404, "User not found");
             }
 
+            foundUser = user;
+
+            console.log('comparing ', password, user.password);
+
+            return bcrypt.compare(password, user.password)
+        })
+        .then(result => {
             let data = {
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName
+                id: foundUser._id,
+                firstName: foundUser.firstName,
+                lastName: foundUser.lastName
             }
 
             let token = jwt.sign(data, 'secret', {
                 expiresIn: 60 * 60
             });
 
-            bcrypt.compare(password, user.password, (err, result) => {
-                if (result) {
-                    return res.status(200).json({token: token, id: user._id, firstName: user.firstName, lastName: user.lastName});
-                }
-                else {
-                    res.send('Incorrect password');
-                }
-            });
+            if (result) {
+                return res.status(200).json({
+                    token: token,
+                    id: foundUser._id,
+                    firstName: foundUser.firstName,
+                    lastName: foundUser.lastName
+                });
+            }
+            else {
+                throw new ServerError(401, "Invalid password");
+            }
         })
         .catch(error => {
             if (error.code === 404) {
@@ -50,6 +62,11 @@ router.post('/login', jsonParser, (req, res) => {
                 res.statusMessage = error.message;
                 return res.status(401).send();
             }
+
+            console.log(error);
+
+            res.statusMessage = "Database error";
+            return res.status(500).send();
         })
 }); 
 

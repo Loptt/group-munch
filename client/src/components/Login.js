@@ -52,8 +52,11 @@ export default function Login(props) {
             })
         }
 
+        console.log("sending...");
+
         fetch(url, settings)
             .then(response => {
+                console.log(response);
                 if (response.ok) {
                     return response.json();
                 }
@@ -71,6 +74,8 @@ export default function Login(props) {
                 setShowAlert(true);
                 console.log(error);
             })
+
+            console.log("Bueno pues");
     }
 
     return (

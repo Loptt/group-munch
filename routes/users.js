@@ -60,14 +60,16 @@ router.post('/create', jsonParser, (req, res) => {
                 throw new ServerError(409);
             }
 
-            bcrypt.hash(password, saltRounds, function(err, hash) {
-                return UserController.create({
-                    firstName: firstName,
-                    lastName: lastName,
-                    email: email,
-                    password: hash
-                });
-            })
+            return bcrypt.hash(password, saltRounds);
+        })
+        .then(hash => {
+            console.log(hash)
+            return UserController.create({
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: hash
+            });
         })
         .then(nu => {
             return res.status(201).json(nu);

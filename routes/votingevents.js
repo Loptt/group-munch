@@ -59,7 +59,9 @@ router.get('/groups/:group_id/recent', jsonParser, (req, res) => {
             return VotingEventController.getByGroupId(id)
         })
         .then(votingEvent => {
-            if (votingEvent == []) {
+            console.log('EVENTS ', votingEvent)
+            if (votingEvent.length < 1) {
+                console.log("NO EVENTS");
                 throw new ServerError(404, "No events found");
             }
             votingEvent.sort((a, b) => a.dateTimeEnd - b.dateTimeEnd);

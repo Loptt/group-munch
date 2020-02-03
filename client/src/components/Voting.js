@@ -29,6 +29,10 @@ export default function Voting (props) {
     }, [props.places]);
 
     const onNewVotingClick = (event) => {
+        if (places.length < 1) {
+            props.voteAlert('danger', "Add some places before creating a voting event");
+            return;
+        }
         setShowNewVoting(!showNewVoting);
     }
 
@@ -81,11 +85,9 @@ export default function Voting (props) {
     }
 
     const handleFetchedVotingEvent = (fetchedEvent) => {
-        if (fetchedEvent == null || fetchedEvent == undefined) {
-            setVotingActive(false);
-            setAnyEvent(false);
-            return;
-        }
+
+        setAnyEvent(true);
+
         let currentDate = new Date();
         let votingDate = new Date(fetchedEvent.dateTimeEnd);
 
@@ -99,9 +101,7 @@ export default function Voting (props) {
             })
         } else {
             setVotingActive(false);
-            if (fetchedEvent.winner) {
-                getWinnerName(fetchedEvent.winner);
-            }
+            getWinnerName(fetchedEvent.winner);
         }
 
         setCurrentEvent(fetchedEvent);
@@ -115,20 +115,27 @@ export default function Voting (props) {
 
         
         fetch(url, settings)
-        .then(response => {
-            if (response.ok) {
-                return response.json();
-            }            
-                throw new Error('PEEEP');
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                if (response.status === 404) {
+                    throw new Error('empty')
+                }
             })
             .then(responseJSON => {
                 console.log(responseJSON);
                 handleFetchedVotingEvent(responseJSON);
             })
             .catch(error => {
-                props.voteAlert('danger', 'Error getting current voting event');
-                console.log(error);
-                setVotingActive(false);
+                if (error.message === 'empty') {
+                    setVotingActive(false);
+                    setAnyEvent(false);
+                } else {
+                    props.voteAlert('danger', 'Error getting current voting event');
+                    console.log(error);
+                    setVotingActive(false);
+                }
             })
     }
 

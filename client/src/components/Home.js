@@ -49,7 +49,10 @@ export default function Home (props) {
         }
 
         let settings = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + props.user.token
+            }
         };
 
         fetch(url, settings)

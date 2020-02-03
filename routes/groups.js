@@ -333,6 +333,8 @@ router.get('/by-member/:id', jsonParser, (req, res) => {
 
     let term = req.query.term;
 
+    console.log(req.headers.authorization);
+
     if (id == undefined) {
         res.statusMessage = "No ID given to show groups of user";
         return res.status(406).send();

@@ -3,23 +3,30 @@ let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 let voteCollection = mongoose.Schema({
-    pricePreference: Number,
-    distancePreference: Number,
     dateTimeVoted: Date,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users'
+    },
+    place: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'places'
     }
 });
 
 let votingEventCollection = mongoose.Schema({
     dateTimeStart: Date,
     dateTimeEnd: Date,
-    vote: [voteCollection],
+    votes: [voteCollection],
     group: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'groups'
-    }
+    },
+    winner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'places'
+    },
+    finished: Boolean
 });
 
 let VotingEvent = mongoose.model('voting_events', votingEventCollection);

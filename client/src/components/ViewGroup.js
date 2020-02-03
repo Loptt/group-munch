@@ -47,7 +47,7 @@ export default function ViewGroup(props) {
     }, []);
 
     useEffect(() => {
-        console.log("Places change!")
+        console.log("Places change!");
     }, [places]);
 
     const checkLogin = () => {
@@ -426,6 +426,26 @@ export default function ViewGroup(props) {
                 </Jumbotron>
                 <Row>
                     <Col lg='6'>
+                        <Voting group={group} places={places} user={props.user}/>
+                        <h2>Members</h2>
+                        <ListGroup className='members'>
+                            {members.map((member, i) => {
+                                return (
+                                    <ListGroup.Item action onClick={onClickDeleteMember}>
+                                        {member.firstName} {member.lastName}
+                                        <Button className='delete-btn' variant='outline-danger' value={member._id} size='sm' onClick={onClickBtnDeleteMember}>
+                                            Remove
+                                        </Button>
+                                    </ListGroup.Item>
+                                )
+                            })}
+                        </ListGroup>
+                        {isManager() ? <p className='remove-hint mt-2'>Double click to remove</p>: null}
+                        {showAddMember ? memberForm() : null}
+                        <Button variant='flat' bg='flat' className='add-btn flat-btn' onClick={handleClickAddMember}>Add member</Button>
+                        {showAddMember ? cancelMemberFrom() : null}
+                    </Col>
+                    <Col lg='6'>
                         <h2>Places</h2>
                         {places.map((place, i) => {
                             return (
@@ -458,26 +478,6 @@ export default function ViewGroup(props) {
                         {showAddPlace ? placeForm() : null}
                         <Button variant='flat' bg='flat' className='add-btn flat-btn' onClick={handleClickAddPlace}>Add place</Button>
                         {showAddPlace ? cancelPlaceFrom() : null}
-                    </Col>
-                    <Col lg='6'>
-                        <Voting group={group}/>
-                        <h2>Members</h2>
-                        <ListGroup className='members'>
-                            {members.map((member, i) => {
-                                return (
-                                    <ListGroup.Item action onClick={onClickDeleteMember}>
-                                        {member.firstName} {member.lastName}
-                                        <Button className='delete-btn' variant='outline-danger' value={member._id} size='sm' onClick={onClickBtnDeleteMember}>
-                                            Remove
-                                        </Button>
-                                    </ListGroup.Item>
-                                )
-                            })}
-                        </ListGroup>
-                        {isManager() ? <p className='remove-hint mt-2'>Double click to remove</p>: null}
-                        {showAddMember ? memberForm() : null}
-                        <Button variant='flat' bg='flat' className='add-btn flat-btn' onClick={handleClickAddMember}>Add member</Button>
-                        {showAddMember ? cancelMemberFrom() : null}
                     </Col>
                 </Row>
                 {isManager() ? <Button variant='outline-danger' className='delete-group mt-2 mb-4' onClick={event => setShowDeleteWarning(true)}>Delete Group</Button> : null}

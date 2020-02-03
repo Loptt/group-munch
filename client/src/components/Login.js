@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import Container from "react-bootstrap/Container";
+import './css/Login.css'
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import {SERVER_URL} from '../config'
 import CustomAlert from './CustomAlert'
+import Card from 'react-bootstrap/Card';
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
@@ -81,19 +83,29 @@ export default function Login(props) {
     return (
         <Container>
             <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
-            <h1>Login</h1>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group>
-                    <Form.Control type="email" placeholder="Email" onChange={onEmailChange} required/>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Control type="password" placeholder="Password" onChange={onPasswordChange} required/>
-                </Form.Group>
-                <Button variant="primary" type="submit">
-                    Submit
-                </Button>
-            </Form>
+            <h1 className='log-regis-title'>Login</h1>
+            <div className="login-card">
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group>
+                        <Form.Control type="email" placeholder="Email" onChange={onEmailChange} required/>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control type="password" placeholder="Password" onChange={onPasswordChange} required/>
+                    </Form.Group>
+                    <Button className="mt-3 mb-2" variant="flat" bg='flat' type="submit">
+                        Submit
+                    </Button>
+                </Form>
+            </div>
             <p>Or register <Link to="/register">here</Link></p>
+            <style type="text/css">
+                {`
+                .btn-flat {
+                    background-color: #30e3ca;
+                    color: white;
+                }
+                `}
+            </style>
         </Container>
     );
 }

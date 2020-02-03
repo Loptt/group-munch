@@ -8,6 +8,7 @@ let bcrypt = require('bcrypt');
 
 let {UserController} = require('../models/user');
 let ServerError = require('../error');
+let {SECRET} = require('../config');
 
 let foundUser;
 
@@ -38,7 +39,7 @@ router.post('/login', jsonParser, (req, res) => {
                 lastName: foundUser.lastName
             }
 
-            let token = jwt.sign(data, 'secret', {
+            let token = jwt.sign(data, SECRET, {
                 expiresIn: 60 * 60
             });
 
@@ -73,7 +74,7 @@ router.post('/login', jsonParser, (req, res) => {
 router.get('/validate/:token', (req, res) => {
     let token = req.params.token;
 
-    jwt.verify(token, 'secret', (err, user) => {
+    jwt.verify(token, SECRET, (err, user) => {
         if (err) {
             res.statusMessage = "Invalid token";
             return res.status(401).json({message: "error"});

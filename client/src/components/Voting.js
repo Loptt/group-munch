@@ -167,13 +167,14 @@ export default function Voting (props) {
                 fetchRecentVotingEvent();
                 setShowNewVoting(false);
                 props.voteAlert('success', 'Voting event created');
-                /*setAnyEvent(true);
-                setShowNewVoting(false);
+                setAnyEvent(true);
+                /*setShowNewVoting(false);
                 setVotingActive(true);
                 setCurrentEvent(responseJSON);*/
                 console.log(responseJSON);
             })
             .catch(error => {
+                setAnyEvent(false);
                 props.voteAlert('danger', 'Error creating new voting event');
                 console.log(error);
             })

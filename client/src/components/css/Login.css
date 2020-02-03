@@ -1,0 +1,26 @@
+.login-container {
+    text-align: center;
+}
+
+.login-card {
+    margin: auto;
+    width: 300px;
+}
+
+.log-regis-title {
+    margin-top: 80px;
+    margin-bottom: 45px;
+    color: #11999e;
+    font-size: 65px;
+}
+
+@media (min-width: 992px) {
+    .login-card {
+        margin: auto;
+        width: 500px;
+    }
+
+    .log-regis-title {
+        margin-top: 170px;
+    }
+}

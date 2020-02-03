@@ -115,27 +115,37 @@ export default function Register(props) {
             </Modal>
             <Container>
                 <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
-                <h1>Register</h1>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Control type="text" placeholder="First Name" onChange={onFirstNameChange} required />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Control type="text" placeholder="Last Name" onChange={onLastNameChange} required />
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Control type="email" placeholder="Email" onChange={onEmailChange} required/>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Control type="password" placeholder="Password" onChange={onPasswordChange} required/>
-                    </Form.Group>
-                    <Form.Group>
-                        <Form.Control type="password" placeholder="Confirm Password" onChange={onPasswordConfChange} required/>
-                    </Form.Group>
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
+                <h1 className='log-regis-title'>Register</h1>
+                <div className="login-card">
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group>
+                            <Form.Control type="text" placeholder="First Name" onChange={onFirstNameChange} required />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control type="text" placeholder="Last Name" onChange={onLastNameChange} required />
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control type="email" placeholder="Email" onChange={onEmailChange} required/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control type="password" placeholder="Password" onChange={onPasswordChange} required/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Control type="password" placeholder="Confirm Password" onChange={onPasswordConfChange} required/>
+                        </Form.Group>
+                        <Button className="mt-3 mb-2" variant="flat" bg='flat' type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                </div>
+                <style type="text/css">
+                {`
+                .btn-flat {
+                    background-color: #30e3ca;
+                    color: white;
+                }
+                `}
+            </style>
                 <p>Already registered? Login <Link to="/login">here</Link></p>
             </Container>
         </>

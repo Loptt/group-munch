@@ -105,7 +105,10 @@ export default function ViewGroup(props) {
     const fetchMembers = () => {
         let url = `${SERVER_URL}/api/groups/${group._id}/members`;
         let settings = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + props.user.token
+            }
         }
 
         fetch(url, settings)
@@ -132,7 +135,10 @@ export default function ViewGroup(props) {
     const fetchPlaces = () => {
         let url = `${SERVER_URL}/api/places/groups/${group._id}`;
         let settings = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + props.user.token
+            }
         }
 
         fetch(url, settings)
@@ -167,7 +173,8 @@ export default function ViewGroup(props) {
         let settings = {
             method: "PUT",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
             body: JSON.stringify({
                 email_member: email
@@ -217,7 +224,8 @@ export default function ViewGroup(props) {
         let settings = {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
             body: JSON.stringify(newPlace)
         }
@@ -250,7 +258,8 @@ export default function ViewGroup(props) {
         let settings = {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
         }
 
@@ -320,7 +329,8 @@ export default function ViewGroup(props) {
         let settings = {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
         }
 
@@ -345,7 +355,8 @@ export default function ViewGroup(props) {
         let settings = {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
         }
 
@@ -545,7 +556,7 @@ export default function ViewGroup(props) {
                                         </Card.Body>
                                     </Card>
                                     {place.showForm ? 
-                                        <EditPlace cancelEditEvent={() => toggleEditPlaceForm(i)} updatePlace={fetchPlaces} className='edit-place-form' place={place}/>
+                                        <EditPlace user={props.user} cancelEditEvent={() => toggleEditPlaceForm(i)} updatePlace={fetchPlaces} className='edit-place-form' place={place}/>
                                         : null
                                     }
                                 </>

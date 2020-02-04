@@ -41,7 +41,8 @@ export default function NewGroup (props) {
         let settings = {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
             body: JSON.stringify({
                 name: name,

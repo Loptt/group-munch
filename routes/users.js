@@ -5,6 +5,7 @@ let router = express.Router();
 let path = require('path');
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcrypt');
+let middleware = require('../middleware');
 const saltRounds = 10;
 
 let {UserController} = require('../models/user');
@@ -86,7 +87,7 @@ router.post('/create', jsonParser, (req, res) => {
         });
 });
 
-router.put('/update', jsonParser, async (req, res) => {
+router.put('/update', jsonParser, middleware.isLoggedIn, async (req, res) => {
     let id = req.query.id;
 
     if (id == undefined) {
@@ -138,7 +139,7 @@ router.put('/update', jsonParser, async (req, res) => {
         });
 });
 
-router.delete('/delete', jsonParser, (req, res) => {
+router.delete('/delete', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.query.id;
     
     if (id == undefined) {

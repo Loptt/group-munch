@@ -9,8 +9,9 @@ let places = require('../places');
 let {GroupController} = require('../models/group');
 let {PlaceController} = require('../models/place');
 let ServerError = require('../error');
+let middleware = require('../middleware');
 
-router.post('/create', jsonParser, (req, res) => {
+router.post('/create', jsonParser, middleware.isLoggedIn, (req, res) => {
     let {name, distanceCategory, priceCategory, group} = req.body;
 
     if (name == undefined || distanceCategory == undefined 
@@ -43,7 +44,7 @@ router.post('/create', jsonParser, (req, res) => {
         });
 });
 
-router.get('/groups/:group_id', jsonParser, (req, res) => {
+router.get('/groups/:group_id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.group_id;
 
     if (id == undefined) {
@@ -62,7 +63,7 @@ router.get('/groups/:group_id', jsonParser, (req, res) => {
         });
 });
 
-router.put('/update/:place_id', jsonParser, (req, res) => {
+router.put('/update/:place_id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.place_id;
 
     if (id == undefined) {
@@ -116,7 +117,7 @@ router.put('/update/:place_id', jsonParser, (req, res) => {
         });
 });
 
-router.delete('/delete/:place_id', jsonParser, (req, res) => {
+router.delete('/delete/:place_id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.place_id;
 
     if (id == undefined) {
@@ -135,7 +136,7 @@ router.delete('/delete/:place_id', jsonParser, (req, res) => {
         });
 });
 
-router.get('/:id', jsonParser, (req, res) => {
+router.get('/:id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.id;
 
     if (id == undefined) {

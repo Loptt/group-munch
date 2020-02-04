@@ -11,8 +11,9 @@ let {VotingEventController} = require('../models/votingevent');
 let {UserController} = require('../models/user');
 let {PlaceController} = require('../models/place');
 let ServerError = require('../error');
+let middleware = require('../middleware');
 
-router.post('/create', jsonParser, (req, res) => {
+router.post('/create', jsonParser, middleware.isLoggedIn, (req, res) => {
     let {dateTimeEnd, group} = req.body;
 
     if (dateTimeEnd == undefined || group == undefined) {
@@ -42,7 +43,7 @@ router.post('/create', jsonParser, (req, res) => {
         });
 });
 
-router.get('/groups/:group_id/recent', jsonParser, (req, res) => {
+router.get('/groups/:group_id/recent', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.group_id;
 
     if (id == undefined) {
@@ -94,7 +95,7 @@ router.get('/groups/:group_id/recent', jsonParser, (req, res) => {
         });
 });
 
-router.get('/groups/:group_id', jsonParser, (req, res) => {
+router.get('/groups/:group_id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.group_id;
 
     if (id == undefined) {
@@ -124,7 +125,7 @@ router.get('/groups/:group_id', jsonParser, (req, res) => {
 });
 
 
-router.post('/:id/cast_vote', jsonParser, (req, res) => {
+router.post('/:id/cast_vote', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.id;
 
     if (id == undefined) {
@@ -250,8 +251,7 @@ router.post('/:id/cast_vote', jsonParser, (req, res) => {
         })
 })
 
-
-router.put('/update/:votingevent_id', jsonParser, (req, res) => {
+router.put('/update/:votingevent_id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.votingevent_id;
 
     if (id == undefined) {
@@ -293,7 +293,7 @@ router.put('/update/:votingevent_id', jsonParser, (req, res) => {
         });
 });
 
-router.delete('/delete/:votingevent_id', jsonParser, (req, res) => {
+router.delete('/delete/:votingevent_id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.votingevent_id;
 
     if (id == undefined) {

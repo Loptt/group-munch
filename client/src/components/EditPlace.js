@@ -6,7 +6,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 
-export default function EditGroup (props) {
+export default function EditPlace (props) {
 
     const [place, setPlace] = useState(props.place);
     const [name, setName] = useState(props.place.name);
@@ -42,7 +42,8 @@ export default function EditGroup (props) {
         let settings = {
             method: "PUT",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
             body: JSON.stringify({
                 name: name,
@@ -73,7 +74,8 @@ export default function EditGroup (props) {
         let settings = {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
         }
 

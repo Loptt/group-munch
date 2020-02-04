@@ -81,7 +81,7 @@ router.get('/validate/:token', (req, res) => {
         }
 
         console.log(user);
-        return res.status(200).json({message: "success", id: user.id, firstName: user.firstName, lastName: user.lastName});
+        return res.status(200).json({message: "success", id: user.id, firstName: user.firstName, lastName: user.lastName, token: token});
     });
 });
 

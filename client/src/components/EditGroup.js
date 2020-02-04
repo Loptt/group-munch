@@ -44,8 +44,10 @@ export default function EditGroup (props) {
         let settings = {
             method: "PUT",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
+            
             body: JSON.stringify({
                 name: name,
                 description: desc,

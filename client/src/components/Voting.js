@@ -39,7 +39,10 @@ export default function Voting (props) {
     const fetchPlaces = () => {
         let url = `${SERVER_URL}/api/places/groups/${group._id}`;
         let settings = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + props.user.token
+            }
         }
 
         fetch(url, settings)
@@ -63,7 +66,10 @@ export default function Voting (props) {
     const getWinnerName = (place_id) => {
         let url = `${SERVER_URL}/api/places/${place_id}`;
         let settings = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + props.user.token
+            }
         }
 
         fetch(url, settings)
@@ -110,7 +116,10 @@ export default function Voting (props) {
     const fetchRecentVotingEvent = () => {
         let url = `${SERVER_URL}/api/votingevents/groups/${group._id}/recent`;
         let settings = {
-            method: 'GET'
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + props.user.token
+            }
         };
 
         
@@ -154,7 +163,8 @@ export default function Voting (props) {
         let settings = {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
             body: JSON.stringify({
                 group: group._id,
@@ -198,7 +208,8 @@ export default function Voting (props) {
         let settings = {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                authorization: 'Bearer ' + props.user.token
             },
             body: JSON.stringify({
                 user_id: props.user.id,

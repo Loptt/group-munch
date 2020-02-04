@@ -10,8 +10,9 @@ let {GroupController} = require('../models/group');
 let {UserController} = require('../models/user');
 let {PlaceController} = require('../models/place');
 let ServerError = require('../error');
+let middleware = require('../middleware');
 
-router.get('/:id/members', jsonParser, (req, res) => {
+router.get('/:id/members', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.id;
 
     console.log('getting members...')
@@ -42,7 +43,7 @@ router.get('/:id/members', jsonParser, (req, res) => {
 });
 
 
-router.post('/create', jsonParser, (req, res) => {
+router.post('/create', jsonParser, middleware.isLoggedIn, (req, res) => {
     let groupName = req.body.name;
     let groupDescription = req.body.description;
     let managerId = req.body.manager_id;
@@ -79,7 +80,7 @@ router.post('/create', jsonParser, (req, res) => {
         });
 });
 
-router.put('/update/:id', jsonParser, async (req, res) => {
+router.put('/update/:id', jsonParser, middleware.isLoggedIn, async (req, res) => {
     let id = req.params.id;
 
     if (id == undefined) {
@@ -126,7 +127,7 @@ router.put('/update/:id', jsonParser, async (req, res) => {
         });
 });
 
-router.put('/:id_group/add_member', jsonParser, (req, res) => {
+router.put('/:id_group/add_member', jsonParser, middleware.isLoggedIn, (req, res) => {
     let groupId = req.params.id_group;
     let memberId = req.body.id_member;
 
@@ -182,7 +183,7 @@ router.put('/:id_group/add_member', jsonParser, (req, res) => {
         });
 });
 
-router.put('/:id_group/add_member_email', jsonParser, (req, res) => {
+router.put('/:id_group/add_member_email', jsonParser, middleware.isLoggedIn, (req, res) => {
     let groupId = req.params.id_group;
     let memberEmail = req.body.email_member;
 
@@ -238,7 +239,7 @@ router.put('/:id_group/add_member_email', jsonParser, (req, res) => {
         });
 });
 
-router.delete('/delete/:id', jsonParser, (req, res) => {
+router.delete('/delete/:id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.id;
 
     if (id == undefined) {
@@ -271,7 +272,7 @@ router.delete('/delete/:id', jsonParser, (req, res) => {
         })
 })
 
-router.delete('/:id_group/delete-member/:id_member', jsonParser, (req, res) => {
+router.delete('/:id_group/delete-member/:id_member', jsonParser, middleware.isLoggedIn, (req, res) => {
     let groupId = req.params.id_group;
     let memberId = req.params.id_member;
     
@@ -328,7 +329,7 @@ router.delete('/:id_group/delete-member/:id_member', jsonParser, (req, res) => {
         });
 });
 
-router.get('/by-member/:id', jsonParser, (req, res) => {
+router.get('/by-member/:id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.id;
 
     let term = req.query.term;
@@ -374,7 +375,7 @@ router.get('/by-member/:id', jsonParser, (req, res) => {
         });
 });
 
-router.get('/:id', jsonParser, (req, res) => {
+router.get('/:id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.id;
 
     if (id == undefined) {

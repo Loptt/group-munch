@@ -8,5 +8,12 @@ module.exports = [
     "https://www.pandotrip.com/wp-content/uploads/2016/07/li-Photo-by-Santo-980x572.jpg",
     "https://static.photocdn.pt/images/articles/2017_1/iStock-545347988.jpg",
     "https://learn.zoner.com/wp-content/uploads/2018/08/landscape-photography-at-every-hour-part-ii-photographing-landscapes-in-rain-or-shine-683x390.jpg",
-    "https://33bopn2vwq9l20z09k1ikaal-wpengine.netdna-ssl.com/wp-content/uploads/2010/06/canada_3081-copy-1280x630.jpg"
+    "https://33bopn2vwq9l20z09k1ikaal-wpengine.netdna-ssl.com/wp-content/uploads/2010/06/canada_3081-copy-1280x630.jpg",
+    "https://cdn2.outdoorphotographer.com/2019/01/Moody_Landscapes_1.jpg",
+    "https://photographycourse.net/wp-content/uploads/2014/11/Landscape-Photography-steps.jpg",
+    "https://121clicks.com/wp-content/uploads/2019/07/landscape_photography_course_ian_plant_01.jpg",
+    "https://maestriasydiplomadostec.blob.core.windows.net/maestriasydiplomados/uploads/programaec/imagen/247/Metropolitan-Landscape.jpg",
+    "https://i.pinimg.com/originals/6d/30/93/6d3093794c28e14bc6a197da843192c5.png",
+    "https://images.pexels.com/photos/1239162/pexels-photo-1239162.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "https://image.winudf.com/v2/image/Y29tLndhbGxwYXBlcjRrLmhkd2FsbHBhcGVycy5uZXd5b3JrY2l0eV9zY3JlZW5fMV8xNTExMDc0MzUwXzAzNQ/screen-1.jpg?fakeurl=1&type=.jpg"
 ]

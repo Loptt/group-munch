@@ -9,5 +9,11 @@ module.exports = [
     "https://dppoland.com/2015/wp-content/uploads/slider-texmex.jpg",
     "https://cedarspizzeria.com/facebookimages/Pizza3.jpg",
     "https://scm-assets.constant.co/scm/unilever/e9dc924f238fa6cc29465942875fe8f0/da9dcad5-93e1-41bf-b846-95e9c93a2632.jpg",
-    "https://img.theculturetrip.com/768x432/wp-content/uploads/2017/08/ari-helminen.jpg"
+    "https://img.theculturetrip.com/768x432/wp-content/uploads/2017/08/ari-helminen.jpg",
+    "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/screen-shot-2020-01-07-at-11-10-28-am-1578413438.png?resize=480:*",
+    "https://www.tastybitesfoodtours.com.mx/wp-content/uploads/2018/03/Pan-Comida-Vegetarian-Restaurant-750x422.jpg",
+    "https://img.chilango.com/2017/05/donde-comer-kebabs-df.jpg",
+    "https://mxcity.mx/wp-content/uploads/2016/06/mxcity.mx_espadas.jpg",
+    "https://i1.wp.com/thehappening.com/wp-content/uploads/2016/10/espadas-de-carne-cdmx.jpg?resize=620%2C420&ssl=1",
+    "https://stmedia.stimg.co/ctyp-buffalowildwing2s-startribune.JPG?w=800"
 ]

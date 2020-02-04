@@ -87,8 +87,8 @@ router.post('/create', jsonParser, (req, res) => {
         });
 });
 
-router.put('/update', jsonParser, middleware.isLoggedIn, async (req, res) => {
-    let id = req.query.id;
+router.put('/update/:id', jsonParser, middleware.isLoggedIn, async (req, res) => {
+    let id = req.params.id;
 
     if (id == undefined) {
         res.statusMessage = "No id given to update";
@@ -139,8 +139,8 @@ router.put('/update', jsonParser, middleware.isLoggedIn, async (req, res) => {
         });
 });
 
-router.delete('/delete', jsonParser, middleware.isLoggedIn, (req, res) => {
-    let id = req.query.id;
+router.delete('/delete/:id', jsonParser, middleware.isLoggedIn, (req, res) => {
+    let id = req.params.id;
     
     if (id == undefined) {
         res.statusMessage = "No ID given to delete";

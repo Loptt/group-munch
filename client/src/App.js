@@ -7,6 +7,7 @@ import Register from './components/Register'
 import NewGroup from "./components/NewGroup";
 import ViewGroup from "./components/ViewGroup";
 import EditGroup from "./components/EditGroup";
+import EditProfile from "./components/EditProfile"
 import {SERVER_URL} from './config';
 
 export default class App extends Component {
@@ -96,6 +97,17 @@ export default class App extends Component {
             })
     }
 
+    updateUserNames = (fName, lName) => {
+        this.setState({
+            user: {
+                fName:fName,
+                lName: lName,
+                id: this.state.user.id,
+                token: this.state.user.token
+            }
+        })
+    }
+
     componentDidMount() {
         this.checkTokenLocalStorage();
     }
@@ -175,6 +187,21 @@ export default class App extends Component {
                             loggedIn={this.state.loggedIn}
                             user={this.state.user}
                             logout={this.logout}
+                        />
+                        )}
+                    />
+
+                    <Route
+                        exact
+                        path={"/edit/profile"}
+                        render={props => (
+                        <EditProfile
+                            {...props}
+                            group={this.state.selectedGroup}
+                            loggedIn={this.state.loggedIn}
+                            user={this.state.user}
+                            logout={this.logout}
+                            updateUserNames={this.updateUserNames}
                         />
                         )}
                     />

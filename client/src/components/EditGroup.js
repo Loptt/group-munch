@@ -86,9 +86,13 @@ export default function EditGroup (props) {
         setDesc(event.target.value);
     }
 
+    const handleEditProfile = () => {
+        props.history.push('/edit/profile');
+    }
+
     return (
         <div className='app-container-x'>
-            <Navigation user={props.user} handleLogout={handleLogout}/>
+            <Navigation user={props.user} handleLogout={handleLogout} handleEditProfile={handleEditProfile}/>
             <Container>
                 <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
                 <h1 className="title">

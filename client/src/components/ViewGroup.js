@@ -473,9 +473,13 @@ export default function ViewGroup(props) {
         )
     }
 
+    const handleEditProfile = () => {
+        props.history.push('/edit/profile');
+    }
+
     return (
         <div className='app-container-x'>
-            <Navigation user={props.user} handleLogout={handleLogout}/>
+            <Navigation user={props.user} handleLogout={handleLogout} handleEditProfile={handleEditProfile}/>
             <Modal show={showDeleteWarning} onHide={1}>
                 <Modal.Header>
                 <Modal.Title>Delete group?</Modal.Title>

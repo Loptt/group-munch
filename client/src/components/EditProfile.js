@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import './css/NewGroup.css'
+import React, {useState, useEffect} from 'react'
 import {SERVER_URL} from '../config'
 import Navigation from './Navigation';
 import Container from 'react-bootstrap/Container'
@@ -7,17 +6,25 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 import CustomAlert from './CustomAlert'
 
-export default function NewGroup (props) {
+export default function EditProfile (props) {
 
-    const [name, setName] = useState("");
-    const [desc, setDesc] = useState("");
+    const [fName, setFName] = useState(props.user.fName);
+    const [lName, setLName] = useState(props.user.lName);
 
     const [alertVariant, setAlertVariant] = useState('danger');
     const [alertMessage, setAlertMessage] = useState('');
     const [showAlert, setShowAlert] = useState(false);
 
+    const editFNameUser = React.createRef();
+    const editLNameUser = React.createRef();
+
     useEffect(() => {
         checkLogin();
+        if (props.user == undefined) {
+            props.history.push('/');
+        }
+        editFNameUser.current.value = props.user.fName;
+        editLNameUser.current.value = props.user.lName;
     }, []);
 
     const checkLogin = () => {
@@ -33,23 +40,25 @@ export default function NewGroup (props) {
     const handleLogout = () => {
         props.logout();
     }
-    
-    const handleSubmit = event => {
-        event.preventDefault();
 
-        let url = `${SERVER_URL}/api/groups/create`;
+    const handleSubmit = e => {
+        e.preventDefault();
+
+        let url = `${SERVER_URL}/api/users/update/${props.user.id}`;
         let settings = {
-            method: "POST",
+            method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
                 authorization: 'Bearer ' + props.user.token
             },
+            
             body: JSON.stringify({
-                name: name,
-                description: desc,
-                manager_id: props.user.id
+                firstName: fName,
+                lastName: lName
             })
         }
+
+        console.log(fName + "   "+lName);
 
         fetch(url, settings)
             .then(response => {
@@ -57,10 +66,11 @@ export default function NewGroup (props) {
                     return response.json()
                 }
 
-                throw new Error();
+                throw new Error('No jala');
             })
             .then(responseJSON => {
                 console.log(responseJSON);
+                props.updateUserNames(fName, lName);
                 props.history.push('/');
             })
             .catch(error => {
@@ -68,16 +78,8 @@ export default function NewGroup (props) {
             })
     }
 
-    const onNameChange = event => {
-        setName(event.target.value);
-    }
-
-    const onDescChange = event => {
-        setDesc(event.target.value);
-    }
-
-    const handleCancel = event => {
-        props.history.push('/view/group');
+    const handleCancel = e => {
+        props.history.push('/');
     }
 
     const handleEditProfile = () => {
@@ -85,22 +87,23 @@ export default function NewGroup (props) {
     }
 
     return (
-        <div className='app-container-x'>
+        <>
+            <div className='app-container-x'>
             <Navigation user={props.user} handleLogout={handleLogout} handleEditProfile={handleEditProfile}/>
             <Container>
                 <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
                 <h1 className="title">
-                    Create new Group
+                    Edit Profile
                 </h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group>
-                        <Form.Control type="text" placeholder="Name" onChange={onNameChange} required/>
+                        <Form.Control ref={editFNameUser} type="text" placeholder="First Name" onChange={e => setFName(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control as="textarea" placeholder="Description" rows="3" onChange={onDescChange} required />
+                        <Form.Control ref={editLNameUser} type='text' placeholder="Last Name" onChange={e => setLName(e.target.value)} required />
                     </Form.Group>
                     <Button variant="flat" bg="flat" type="submit">
-                        Create
+                        Save
                     </Button>
                 </Form>
                 <p className="cancel-group-edit cancel-member" onClick={handleCancel}>Cancel</p>
@@ -113,5 +116,6 @@ export default function NewGroup (props) {
                 `}
             </style>
         </div>
+        </>
     )
 }

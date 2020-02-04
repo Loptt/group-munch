@@ -18,6 +18,7 @@ export default function Voting (props) {
     const [places, setPlaces] = useState(props.places);
     const [winner, setWinner] = useState('');
     const [showVote, setShowVote] = useState(true);
+    const [dateString, setDateString] = useState('');
 
     useEffect(() => {
         fetchRecentVotingEvent();
@@ -111,6 +112,7 @@ export default function Voting (props) {
         }
 
         setCurrentEvent(fetchedEvent);
+        setDateString(formatDate(votingDate));
     }
 
     const fetchRecentVotingEvent = () => {
@@ -236,6 +238,13 @@ export default function Voting (props) {
             })
     }
 
+    const formatDate = (date) => {
+        if (date == undefined) {
+            return '';
+        }
+        return date.toLocaleDateString("en-US") + ' ' + date.toLocaleTimeString('es-MX').substring(0,5); 
+    }
+
     const newVoteForm = () => {
         return (
             <div className='mt-3 rounded border'>
@@ -265,7 +274,7 @@ export default function Voting (props) {
             <div>
                 {!anyEvent ? <h4 className="my-4 py-4">No voting events yet</h4>
                 :<div>
-                    <p>Date: {currentEvent.dateTimeEnd}</p>
+                    <p>Date: {dateString}</p>
                     <p>Winner: {winner}</p>
                 </div>
                 }   

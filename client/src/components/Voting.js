@@ -14,16 +14,19 @@ export default function Voting (props) {
     const [group, setGroup] = useState(props.group);
     const [votingActive, setVotingActive] = useState(false);
     const [currentEvent, setCurrentEvent] = useState({});
+    const [latestVotes, setLatestVotes] = useState([]);
     const [anyEvent, setAnyEvent] = useState(true);
     const [places, setPlaces] = useState(props.places);
     const [winner, setWinner] = useState('');
     const [showVote, setShowVote] = useState(true);
     const [dateString, setDateString] = useState('');
     const [endDateString, setEndDateString] = useState('');
+    const [showPrevVotes, setShowPrevVotes] = useState(false);
 
     useEffect(() => {
         fetchRecentVotingEvent();
         fetchPlaces();
+        fetchRecent5VotingEvents();
     }, [])
 
     useEffect(() => {
@@ -155,6 +158,35 @@ export default function Voting (props) {
             })
     }
 
+    const fetchRecent5VotingEvents = () => {
+        let url = `${SERVER_URL}/api/votingevents/groups/${group._id}/recent-5`;
+        let settings = {
+            method: 'GET',
+            headers: {
+                authorization: 'Bearer ' + props.user.token
+            }
+        };
+ 
+        fetch(url, settings)
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                if (response.status === 404) {
+                    throw new Error('empty')
+                }
+            })
+            .then(responseJSON => {
+                console.log("Latest votes ", responseJSON);
+                setLatestVotes(responseJSON);
+            })
+            .catch(error => {
+                if (error.message !== 'empty') {
+                    props.voteAlert('danger', 'Error getting latest voting events');
+                }
+            })
+    }
+
     const handleNewVotingEvent = (event) => {
         let updatedDate = date;
 
@@ -249,7 +281,7 @@ export default function Voting (props) {
 
     const newVoteForm = () => {
         return (
-            <div className='mt-3 rounded border'>
+            <div className='my-3 rounded border'>
                 <div className='my-3'>
                     <Form.Label className='mr-3'>End date</Form.Label>
                     <DatePicker
@@ -277,7 +309,7 @@ export default function Voting (props) {
                 {!anyEvent ? <h4 className="my-4 py-4">No voting events yet</h4>
                 :<div>
                     <p>Date: {dateString}</p>
-                    <p>Winner: {winner}</p>
+                    <p>Winner: {props.findPlaceName(currentEvent.winner)}</p>
                 </div>
                 }   
                 <Button variant='flat'
@@ -321,6 +353,25 @@ export default function Voting (props) {
         <div className='mb-4'>
             <h2>{votingActive ? "Vote Now!" : "Latest Vote"}</h2>
             {votingActive ? yesVoting() : noVoting()}
+
+            <Button variant='flat' bg='flat' className='vote-btn mb-3' 
+                onClick={(e) => {setShowPrevVotes(!showPrevVotes)}}>{showPrevVotes ? "Hide" : "Previous Votes"}
+            </Button>
+            {showPrevVotes ?
+                <ListGroup className='vote-results'>
+                {latestVotes.map((ve, i) => {
+                    return (
+                        <>
+                        <ListGroup.Item className='vote-result'>
+                            <p>Winner: {props.findPlaceName(ve.winner)}</p>
+                            <p>Date: {formatDate(new Date(ve.dateTimeEnd))}</p>
+                        </ListGroup.Item>
+                        <div></div>
+                        </>
+                    )
+                })}
+                </ListGroup>
+                : null}
             
             <style type="text/css">
                 {`
@@ -329,6 +380,11 @@ export default function Voting (props) {
                 }
                 .vote-btn {
                     background-color: #e4f9f5;
+                }
+                .sep {
+                    width: 100%
+                    height: 1px;
+                    background-color: #cccccc
                 }
                 `}
             </style>

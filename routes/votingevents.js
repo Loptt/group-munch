@@ -61,35 +61,52 @@ router.get('/groups/:group_id/recent', jsonParser, middleware.isLoggedIn, (req, 
             return VotingEventController.getByGroupId(id)
         })
         .then(votingEvent => {
-            console.log('EVENTS ', votingEvent)
             if (votingEvent.length < 1) {
-                console.log("NO EVENTS");
                 throw new ServerError(404, "No events found");
             }
+
+            // We sort the events in chronological order, oldest first
             votingEvent.sort((a, b) => a.dateTimeEnd - b.dateTimeEnd);
 
-            let event;
             let currentDate = new Date();
-            let filteredEvents = votingEvent.filter(ve => ve.dateTimeEnd > currentDate);
 
-            console.log('FILTER ', filteredEvents);
+            // We filter the events to get all events that will take place in the future
+            let filteredEvents = votingEvent.filter(ve => ve.dateTimeEnd > currentDate);
 
             let foundEvent;
 
+            console.log("FUTURE EVENTS ", filteredEvents);
+
+            let foundInFuture = false;
+
             if (filteredEvents.length === 0) {
-                console.log('All old');
+                // If no events take place in the future, we get the most recent
+                // event in the past
                 foundEvent = votingEvent[votingEvent.length-1];
             } else {
-                foundEvent = filteredEvents[0];
+                filteredEvents.forEach(ve => {
+                    if (!ve.finished) {
+                        foundEvent = ve;
+                        foundInFuture = true;
+                        console.log("Setting Curr ev to ", foundEvent);
+                        return;
+                    }
+                })
+                
+                if (!foundInFuture)  {
+                    foundEvent = votingEvent[votingEvent.length-1];
+                    console.log("Setting Curr ev to other", foundEvent);
+                }
             }
 
-            console.log("NEW EVENT ", foundEvent);
-
-            if (foundEvent.dateTimeEnd < currentDate) {
+            // if the event is in the past and it doesn't have a winner, find the winner
+            // and mark the event as finished
+            if (foundEvent.dateTimeEnd < currentDate && !foundEvent.winner) {
                 foundEvent.finished = true;
                 foundEvent.winner = voteintelligence.findWinner(foundEvent.votes);
             }
 
+            // We update the event if there are any changes
             VotingEventController.update(foundEvent._id, foundEvent)
                 .then(fe => {
                     return res.status(200).json(foundEvent)
@@ -104,6 +121,54 @@ router.get('/groups/:group_id/recent', jsonParser, middleware.isLoggedIn, (req, 
             return res.status(error.code).send();
         });
 });
+
+router.get('/groups/:group_id/recent-5', jsonParser, middleware.isLoggedIn, (req, res) => {
+    let id = req.params.group_id;
+
+    if (id == undefined) {
+        res.statusMessage = "No id given to get voting event";
+        return res.status(406).send();
+    }
+
+    GroupController.getById(id)
+        .then(group => {
+            if (group == null) {
+                throw new ServerError(404, "Group not found");
+            }
+
+            return VotingEventController.getByGroupId(id)
+        })
+        .then(votingEvent => {
+            if (votingEvent.length < 1) {
+                throw new ServerError(404, "No events found");
+            }
+
+            // Sort events in chronological order, newest first
+            let events = votingEvent.sort((a, b) => a.dateTimeEnd - b.dateTimeEnd);
+
+            let currentDate = new Date();
+
+            // Keek all events prior to current date
+            let oldEvents = [];
+
+            events.forEach(e => {
+                if (e.finished) {
+                    oldEvents.push(e);
+                }
+            });
+
+            if (oldEvents.length > 5) {
+                oldEvents = oldEvents.slice(oldEvents.length - 5);
+            }
+
+            return res.status(200).json(oldEvents.reverse());
+        })
+        .catch(error => {
+            console.log(error);
+            res.statusMessage = error.message;
+            return res.status(error.code).send();
+        });
+})
 
 router.get('/groups/:group_id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.group_id;
@@ -133,7 +198,6 @@ router.get('/groups/:group_id', jsonParser, middleware.isLoggedIn, (req, res) =>
             res.status(error.code).send();
         });
 });
-
 
 router.post('/:id/cast_vote', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.id;

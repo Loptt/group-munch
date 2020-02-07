@@ -12,6 +12,7 @@ let {UserController} = require('../models/user');
 let {PlaceController} = require('../models/place');
 let ServerError = require('../error');
 let middleware = require('../middleware');
+let voteintelligence = require('../voteintelligence');
 
 router.post('/create', jsonParser, middleware.isLoggedIn, (req, res) => {
     let {dateTimeEnd, group} = req.body;
@@ -73,20 +74,29 @@ router.get('/groups/:group_id/recent', jsonParser, middleware.isLoggedIn, (req, 
 
             console.log('FILTER ', filteredEvents);
 
+            let foundEvent;
+
             if (filteredEvents.length === 0) {
                 console.log('All old');
-                return res.status(200).json(votingEvent[votingEvent.length-1]);
+                foundEvent = votingEvent[votingEvent.length-1];
             } else {
-                filteredEvents.forEach((e) => {
-                    /*if (!e.finished) {
-                        return res.status(200).json(e);
-                    }*/
-
-                    return res.status(200).json(votingEvent[0]);
-                })
+                foundEvent = filteredEvents[0];
             }
 
-            return res.status(200).json(votingEvent[0]);
+            console.log("NEW EVENT ", foundEvent);
+
+            if (foundEvent.dateTimeEnd < currentDate) {
+                foundEvent.finished = true;
+                foundEvent.winner = voteintelligence.findWinner(foundEvent.votes);
+            }
+
+            VotingEventController.update(foundEvent._id, foundEvent)
+                .then(fe => {
+                    return res.status(200).json(foundEvent)
+                })
+                .catch(error => {
+                    throw new ServerError(500, "Database error");
+                })
         })
         .catch(error => {
             console.log(error);
@@ -189,44 +199,13 @@ router.post('/:id/cast_vote', jsonParser, middleware.isLoggedIn, (req, res) => {
             
             if (votes.length === foundGroup.members.length) {
                 finished = true;
-                let placeVotes = new Map();
-
-                let places = [];
-
-                votes.forEach(vote => {
-                    if (places.indexOf(vote.place.toString()) < 0) {
-                        console.log("Adding " , vote.place.toString());
-                        console.log("Index " , places.indexOf(vote.place.toString()));
-                        places.push(vote.place.toString());
-                    }
-                });
-
-                console.log('Places ', places);
                 
-                places.forEach(p => {
-                    placeVotes.set(p, 0);
-                });
-                
-                votes.forEach(v => {
-                    placeVotes.set(v.place.toString(), placeVotes.get(v.place.toString())+1);
-                })
-                
-                console.log('votes counted', placeVotes);
-                let mostId;
-                let most = -1;
-
-                
-                placeVotes.forEach((v, k)=> {
-                    if (v > most) {
-                        most = v;
-                        mostId = k;
-                    }
-                });
+                let winnerId = voteintelligence.findWinner(votes);
                 
                 newVote = {
                     votes: votes,
                     finished: finished,
-                    winner: mostId
+                    winner: winnerId
                 }
             } else {
                 newVote = {

@@ -19,6 +19,7 @@ export default function Voting (props) {
     const [winner, setWinner] = useState('');
     const [showVote, setShowVote] = useState(true);
     const [dateString, setDateString] = useState('');
+    const [endDateString, setEndDateString] = useState('');
 
     useEffect(() => {
         fetchRecentVotingEvent();
@@ -79,10 +80,9 @@ export default function Voting (props) {
                     return response.json();
                 }
 
-                throw new Error(response);
+                throw new Error(response.statusText);
             })
             .then(responseJSON => {
-                console.log(responseJSON);
                 setWinner(responseJSON.name);
             })
             .catch(error => {
@@ -108,11 +108,16 @@ export default function Voting (props) {
             })
         } else {
             setVotingActive(false);
-            getWinnerName(fetchedEvent.winner);
+            if (fetchedEvent.winner == undefined) {
+                setWinner("Nobody!");
+            } else {
+                getWinnerName(fetchedEvent.winner);
+            }
         }
 
         setCurrentEvent(fetchedEvent);
         setDateString(formatDate(votingDate));
+        setEndDateString(formatDate(new Date(fetchedEvent.dateTimeEnd)));
     }
 
     const fetchRecentVotingEvent = () => {
@@ -153,7 +158,7 @@ export default function Voting (props) {
     const handleNewVotingEvent = (event) => {
         let updatedDate = date;
 
-        updatedDate.setHours(time.substring(0,2), time.substring(3));
+        updatedDate.setHours(time.substring(0,2), time.substring(3), 0);
 
         let currentDate = new Date();
         if (updatedDate < currentDate) {
@@ -185,11 +190,8 @@ export default function Voting (props) {
             .then(responseJSON => {
                 fetchRecentVotingEvent();
                 setShowNewVoting(false);
-                props.voteAlert('success', 'Voting event created');
                 setAnyEvent(true);
-                /*setShowNewVoting(false);
-                setVotingActive(true);
-                setCurrentEvent(responseJSON);*/
+                props.voteAlert('success', 'Voting event created');
                 console.log(responseJSON);
             })
             .catch(error => {
@@ -299,10 +301,10 @@ export default function Voting (props) {
                                 <span className='mr-4'>{place.name}</span>
                                 {showVote ?
                                 <Button onClick={castVote} className='vote-btn ml-4'
-                                    variant='flat' 
-                                    bg='flat' 
-                                    size='sm' 
-                                    value={place._id}>
+                                variant='flat' 
+                                bg='flat' 
+                                size='sm' 
+                                value={place._id}>
                                         Choose
                                 </Button>
                                 : null}
@@ -310,6 +312,7 @@ export default function Voting (props) {
                         )
                     })}
                 </ListGroup>
+                <p className='mt-3'>Voting ends on: {endDateString}</p>
             </div>
         )
     }

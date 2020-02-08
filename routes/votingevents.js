@@ -12,6 +12,7 @@ let {UserController} = require('../models/user');
 let {PlaceController} = require('../models/place');
 let ServerError = require('../error');
 let middleware = require('../middleware');
+let voteintelligence = require('../voteintelligence');
 
 router.post('/create', jsonParser, middleware.isLoggedIn, (req, res) => {
     let {dateTimeEnd, group} = req.body;
@@ -60,33 +61,59 @@ router.get('/groups/:group_id/recent', jsonParser, middleware.isLoggedIn, (req, 
             return VotingEventController.getByGroupId(id)
         })
         .then(votingEvent => {
-            console.log('EVENTS ', votingEvent)
             if (votingEvent.length < 1) {
-                console.log("NO EVENTS");
                 throw new ServerError(404, "No events found");
             }
+
+            // We sort the events in chronological order, oldest first
             votingEvent.sort((a, b) => a.dateTimeEnd - b.dateTimeEnd);
 
-            let event;
             let currentDate = new Date();
+
+            // We filter the events to get all events that will take place in the future
             let filteredEvents = votingEvent.filter(ve => ve.dateTimeEnd > currentDate);
 
-            console.log('FILTER ', filteredEvents);
+            let foundEvent;
+
+            console.log("FUTURE EVENTS ", filteredEvents);
+
+            let foundInFuture = false;
 
             if (filteredEvents.length === 0) {
-                console.log('All old');
-                return res.status(200).json(votingEvent[votingEvent.length-1]);
+                // If no events take place in the future, we get the most recent
+                // event in the past
+                foundEvent = votingEvent[votingEvent.length-1];
             } else {
-                filteredEvents.forEach((e) => {
-                    /*if (!e.finished) {
-                        return res.status(200).json(e);
-                    }*/
-
-                    return res.status(200).json(votingEvent[0]);
+                filteredEvents.forEach(ve => {
+                    if (!ve.finished) {
+                        foundEvent = ve;
+                        foundInFuture = true;
+                        console.log("Setting Curr ev to ", foundEvent);
+                        return;
+                    }
                 })
+                
+                if (!foundInFuture)  {
+                    foundEvent = votingEvent[votingEvent.length-1];
+                    console.log("Setting Curr ev to other", foundEvent);
+                }
             }
 
-            return res.status(200).json(votingEvent[0]);
+            // if the event is in the past and it doesn't have a winner, find the winner
+            // and mark the event as finished
+            if (foundEvent.dateTimeEnd < currentDate && !foundEvent.winner) {
+                foundEvent.finished = true;
+                foundEvent.winner = voteintelligence.findWinner(foundEvent.votes);
+            }
+
+            // We update the event if there are any changes
+            VotingEventController.update(foundEvent._id, foundEvent)
+                .then(fe => {
+                    return res.status(200).json(foundEvent)
+                })
+                .catch(error => {
+                    throw new ServerError(500, "Database error");
+                })
         })
         .catch(error => {
             console.log(error);
@@ -94,6 +121,54 @@ router.get('/groups/:group_id/recent', jsonParser, middleware.isLoggedIn, (req, 
             return res.status(error.code).send();
         });
 });
+
+router.get('/groups/:group_id/recent-5', jsonParser, middleware.isLoggedIn, (req, res) => {
+    let id = req.params.group_id;
+
+    if (id == undefined) {
+        res.statusMessage = "No id given to get voting event";
+        return res.status(406).send();
+    }
+
+    GroupController.getById(id)
+        .then(group => {
+            if (group == null) {
+                throw new ServerError(404, "Group not found");
+            }
+
+            return VotingEventController.getByGroupId(id)
+        })
+        .then(votingEvent => {
+            if (votingEvent.length < 1) {
+                throw new ServerError(404, "No events found");
+            }
+
+            // Sort events in chronological order, newest first
+            let events = votingEvent.sort((a, b) => a.dateTimeEnd - b.dateTimeEnd);
+
+            let currentDate = new Date();
+
+            // Keek all events prior to current date
+            let oldEvents = [];
+
+            events.forEach(e => {
+                if (e.finished) {
+                    oldEvents.push(e);
+                }
+            });
+
+            if (oldEvents.length > 5) {
+                oldEvents = oldEvents.slice(oldEvents.length - 5);
+            }
+
+            return res.status(200).json(oldEvents.reverse());
+        })
+        .catch(error => {
+            console.log(error);
+            res.statusMessage = error.message;
+            return res.status(error.code).send();
+        });
+})
 
 router.get('/groups/:group_id', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.group_id;
@@ -123,7 +198,6 @@ router.get('/groups/:group_id', jsonParser, middleware.isLoggedIn, (req, res) =>
             res.status(error.code).send();
         });
 });
-
 
 router.post('/:id/cast_vote', jsonParser, middleware.isLoggedIn, (req, res) => {
     let id = req.params.id;
@@ -189,44 +263,13 @@ router.post('/:id/cast_vote', jsonParser, middleware.isLoggedIn, (req, res) => {
             
             if (votes.length === foundGroup.members.length) {
                 finished = true;
-                let placeVotes = new Map();
-
-                let places = [];
-
-                votes.forEach(vote => {
-                    if (places.indexOf(vote.place.toString()) < 0) {
-                        console.log("Adding " , vote.place.toString());
-                        console.log("Index " , places.indexOf(vote.place.toString()));
-                        places.push(vote.place.toString());
-                    }
-                });
-
-                console.log('Places ', places);
                 
-                places.forEach(p => {
-                    placeVotes.set(p, 0);
-                });
-                
-                votes.forEach(v => {
-                    placeVotes.set(v.place.toString(), placeVotes.get(v.place.toString())+1);
-                })
-                
-                console.log('votes counted', placeVotes);
-                let mostId;
-                let most = -1;
-
-                
-                placeVotes.forEach((v, k)=> {
-                    if (v > most) {
-                        most = v;
-                        mostId = k;
-                    }
-                });
+                let winnerId = voteintelligence.findWinner(votes);
                 
                 newVote = {
                     votes: votes,
                     finished: finished,
-                    winner: mostId
+                    winner: winnerId
                 }
             } else {
                 newVote = {

@@ -38,6 +38,7 @@ export default function EditProfile (props) {
     }
 
     const handleLogout = () => {
+        props.history.push('/login');
         props.logout();
     }
 
@@ -89,7 +90,7 @@ export default function EditProfile (props) {
     return (
         <>
             <div className='app-container-x'>
-            <Navigation user={props.user} handleLogout={handleLogout} handleEditProfile={handleEditProfile}/>
+            <Navigation {...props} user={props.user} handleLogout={handleLogout} handleEditProfile={handleEditProfile}/>
             <Container>
                 <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
                 <h1 className="title">

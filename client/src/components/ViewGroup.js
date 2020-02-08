@@ -94,6 +94,17 @@ export default function ViewGroup(props) {
         }
     }
 
+    const findPlaceName = (placeId) => {
+        let name = 'Nobody';
+        places.forEach(place => {
+            if (place._id === placeId) {
+                name = place.name;
+            }
+        });
+
+        return name;
+    }
+
     const isManager = () => {
         return group.manager === props.user.id;
     }
@@ -284,6 +295,7 @@ export default function ViewGroup(props) {
     }
 
     const handleLogout = () => {
+        props.history.push('/login');
         props.logout();
     }
 
@@ -479,7 +491,7 @@ export default function ViewGroup(props) {
 
     return (
         <div className='app-container-x'>
-            <Navigation user={props.user} handleLogout={handleLogout} handleEditProfile={handleEditProfile}/>
+            <Navigation {...props} user={props.user} handleLogout={handleLogout} handleEditProfile={handleEditProfile}/>
             <Modal show={showDeleteWarning} onHide={1}>
                 <Modal.Header>
                 <Modal.Title>Delete group?</Modal.Title>
@@ -517,7 +529,7 @@ export default function ViewGroup(props) {
                 <CustomAlert variant={alertVariant} message={alertMessage} show={showAlert} onClose={onCloseAlert}/>
                 <Row>
                     <Col lg='6'>
-                        <Voting group={group} places={places} user={props.user} voteAlert={handleVoteAlert}/>
+                        <Voting group={group} places={places} user={props.user} voteAlert={handleVoteAlert} findPlaceName={findPlaceName}/>
                         <h2>Members</h2>
                         <ListGroup className='members'>
                             {members.map((member, i) => {

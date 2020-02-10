@@ -304,7 +304,7 @@ router.delete('/:id_group/delete-member/:id_member', jsonParser, middleware.isLo
                 throw new ServerError(404, "That member doesn't exist in the given group")
             }
 
-            let index = group.members.findIndex(user => user === memberId);
+            let index = group.members.findIndex(user => user === member._id);
             group.members.splice(index, 1);
             let newGroup = group;
 

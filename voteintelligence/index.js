@@ -35,9 +35,23 @@ voteintelligence = {
             }
         });
 
-        console.log("WINNER ID", mostId);
+        winners = [];
+
+        placeVotes.forEach((v, k) => {
+            if (v == most) {
+                winners.push(k);
+            }
+        });
+
+        if (winners.length < 2) {
+            return mostId;
+        }
+
+        let realWinner = winners[Math.floor(Math.random() * winners.length)];
+
+        console.log("WINNER ID", realWinner);
         
-        return mostId;
+        return realWinner;
     }
 }
 
